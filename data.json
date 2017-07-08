@@ -1,126 +1,371 @@
-[
-  {
-    "id": 1,
-    "name": "Luke Cage",
-    "aliases": ["Carl Lucas", "Power Man", "Mr. Bulletproof", "Hero for Hire"],
-    "occupation": "bartender",
-    "gender": "male",
-    "height": {
-      "ft": 6,
-      "in": 3
+{
+  "user_profile": [
+    {
+      "id": 0,
+      "username": "Ultrices.",
+      "first_name": "Roman",
+      "last_name": "Milling",
+      "profile_pic_url": "img0.png",
+      "joined_date": "Thu Jun 18 2015 04:09:23 GMT-0400 (EDT)",
+      "rating": 0
     },
-    "hair": "bald",
-    "eyes": "brown",
-    "powers": [
-      "strength",
-      "durability",
-      "healing"
-    ]
-  },
-  {
-    "id": 2,
-    "name": "Spider-Man",
-    "aliases": ["Dr. Peter Benjamin Parker", "Spidey", "Web-Sligner", "Spider-X-Man"],
-    "occupation": "scientist",
-    "gender": "male",
-    "height": {
-      "ft": 5,
-      "in": 10
+    {
+      "id": 1,
+      "username": "Ac.",
+      "first_name": "Victoria",
+      "last_name": "Verde",
+      "profile_pic_url": "img1.png",
+      "joined_date": "Mon Jun 08 2015 12:57:31 GMT-0400 (EDT)",
+      "rating": 4
     },
-    "hair": "brown",
-    "eyes": "hazel",
-    "powers": [
-      "wall-crawling",
-      "strength",
-      "speed",
-      "stamina",
-      "durability",
-      "agility",
-      "healing",
-      "reflexes",
-      "Spider-Sense",
-      "genius"
-    ]
-  },
-  {
-    "id": 3,
-    "name": "Captain America",
-    "aliases": [
-      "Winghead",
-      "Shield-Slinger",
-      "the Captain",
-      "Cap",
-      "Yeoman America",
-      "Sentinel of Liberty",
-      "The Living Legend"
-    ],
-    "occupation": "special agent",
-    "gender": "male",
-    "height": {
-      "ft": 6,
-      "in": 2
+    {
+      "id": 2,
+      "username": "Id.",
+      "first_name": "Janett",
+      "last_name": "Brier",
+      "profile_pic_url": "img2.png",
+      "joined_date": "Tue Jun 23 2015 03:39:53 GMT-0400 (EDT)",
+      "rating": 3
     },
-    "hair": "blonde",
-    "eyes": "blue",
-    "powers": [
-      "strength",
-      "speed",
-      "durability",
-      "agility",
-      "reflexes",
-      "stamina",
-      "healing",
-      "longevity"
-    ]
-  },
-  {
-    "id": 4,
-    "name": "Iron Man",
-    "aliases": [
-      "Tony Stark",
-      "Golden Gladiator",
-      "Spare Parts Man",
-      "Space-Knight"
-    ],
-    "occupation": "inventor",
-    "gender": "male",
-    "height": {
-      "ft": 6,
-      "in": 1
+    {
+      "id": 3,
+      "username": "Tempor.",
+      "first_name": "Rufus",
+      "last_name": "Milligan",
+      "profile_pic_url": "img3.png",
+      "joined_date": "Thu Jun 11 2015 08:35:52 GMT-0400 (EDT)",
+      "rating": 10
     },
-    "hair": "black",
-    "eyes": "blue",
-    "powers": []
-  },
-  {
-    "id": 5,
-    "name": "Wolverine",
-    "aliases": [
-      "Logan",
-      "Weapon X",
-      "Death",
-      "Agent Ten",
-      "Fist of Legend"
-    ],
-    "occupation": "special agent",
-    "gender": "male",
-    "height": {
-      "ft": 5,
-      "in": 3
+    {
+      "id": 4,
+      "username": "Commodo.",
+      "first_name": "Theo",
+      "last_name": "Castleman",
+      "profile_pic_url": "img4.png",
+      "joined_date": "Fri Jun 12 2015 07:29:16 GMT-0400 (EDT)",
+      "rating": 4
     },
-    "hair": "black",
-    "eyes": "blue",
-    "powers": [
-      "healing",
-      "acute senses",
-      "strength",
-      "speed",
-      "durability",
-      "agility",
-      "stamina",
-      "weather adaptation",
-      "animal empathy",
-      "bone claws"
-    ]
-  }
-]
+    {
+      "id": 5,
+      "username": "Nibh.",
+      "first_name": "Layla",
+      "last_name": "Seabury",
+      "profile_pic_url": "img5.png",
+      "joined_date": "Tue Jun 02 2015 10:11:05 GMT-0400 (EDT)",
+      "rating": 4
+    },
+    {
+      "id": 6,
+      "username": "Ac.",
+      "first_name": "Rolf",
+      "last_name": "Connor",
+      "profile_pic_url": "img6.png",
+      "joined_date": "Fri Jun 05 2015 03:45:28 GMT-0400 (EDT)",
+      "rating": 2
+    },
+    {
+      "id": 7,
+      "username": "Vel.",
+      "first_name": "Russell",
+      "last_name": "Rohloff",
+      "profile_pic_url": "img7.png",
+      "joined_date": "Tue Jun 16 2015 22:06:59 GMT-0400 (EDT)",
+      "rating": 5
+    },
+    {
+      "id": 8,
+      "username": "Nisi.",
+      "first_name": "Haley",
+      "last_name": "Backer",
+      "profile_pic_url": "img8.png",
+      "joined_date": "Tue Jun 30 2015 15:55:50 GMT-0400 (EDT)",
+      "rating": 3
+    },
+    {
+      "id": 9,
+      "username": "Viverra.",
+      "first_name": "Ian",
+      "last_name": "Winter",
+      "profile_pic_url": "img9.png",
+      "joined_date": "Sun Jun 07 2015 17:08:14 GMT-0400 (EDT)",
+      "rating": 8
+    },
+    {
+      "id": 10,
+      "username": "Aliquam.",
+      "first_name": "Erik",
+      "last_name": "Winter",
+      "profile_pic_url": "img10.png",
+      "joined_date": "Mon Jun 29 2015 10:28:19 GMT-0400 (EDT)",
+      "rating": 7
+    },
+    {
+      "id": 11,
+      "username": "Felis.",
+      "first_name": "Marcus",
+      "last_name": "Goudy",
+      "profile_pic_url": "img11.png",
+      "joined_date": "Wed Jun 03 2015 12:10:37 GMT-0400 (EDT)",
+      "rating": 4
+    },
+    {
+      "id": 12,
+      "username": "Condimentum.",
+      "first_name": "Hannah",
+      "last_name": "Mercer",
+      "profile_pic_url": "img12.png",
+      "joined_date": "Mon Jun 08 2015 06:58:41 GMT-0400 (EDT)",
+      "rating": 3
+    },
+    {
+      "id": 13,
+      "username": "Pulvinar.",
+      "first_name": "Francis",
+      "last_name": "Neal",
+      "profile_pic_url": "img13.png",
+      "joined_date": "Tue Jun 23 2015 14:23:08 GMT-0400 (EDT)",
+      "rating": 8
+    },
+    {
+      "id": 14,
+      "username": "Id.",
+      "first_name": "Ian",
+      "last_name": "Cumbie",
+      "profile_pic_url": "img14.png",
+      "joined_date": "Fri Jun 26 2015 15:47:30 GMT-0400 (EDT)",
+      "rating": 1
+    },
+    {
+      "id": 15,
+      "username": "Ac.",
+      "first_name": "Grace",
+      "last_name": "Mullens",
+      "profile_pic_url": "img15.png",
+      "joined_date": "Sun Jun 28 2015 11:57:16 GMT-0400 (EDT)",
+      "rating": 4
+    },
+    {
+      "id": 16,
+      "username": "Etiam.",
+      "first_name": "Jamie",
+      "last_name": "Keesee",
+      "profile_pic_url": "img16.png",
+      "joined_date": "Sun Jun 28 2015 14:59:41 GMT-0400 (EDT)",
+      "rating": 3
+    },
+    {
+      "id": 17,
+      "username": "Accumsan.",
+      "first_name": "Madeleine",
+      "last_name": "Remus",
+      "profile_pic_url": "img17.png",
+      "joined_date": "Mon Jun 22 2015 12:52:24 GMT-0400 (EDT)",
+      "rating": 5
+    },
+    {
+      "id": 18,
+      "username": "Commodo.",
+      "first_name": "Haley",
+      "last_name": "Cappel",
+      "profile_pic_url": "img18.png",
+      "joined_date": "Tue Jun 09 2015 09:10:06 GMT-0400 (EDT)",
+      "rating": 7
+    },
+    {
+      "id": 19,
+      "username": "Et.",
+      "first_name": "Rufus",
+      "last_name": "Young",
+      "profile_pic_url": "img19.png",
+      "joined_date": "Tue Jun 30 2015 13:14:11 GMT-0400 (EDT)",
+      "rating": 9
+    }
+  ],
+  "posted_gigs": [
+    {
+      "id": 0,
+      "username": "I.",
+      "date_time": "Tue Jun 30 2015 14:55:28 GMT-0400 (EDT)",
+      "price_range": 5655257,
+      "average_bid": 4819362,
+      "project": "Sed neque pellentesque nam morbi, ac vulputate ante scelerisque, erat id nam scelerisque ultricies mattis dolor, et rhoncus id erat lacinia velit commodo eget erat rhoncus justo in maximus curabitur quis mollis. Consectetur non enim faucibus a mattis lectus sed."
+    },
+    {
+      "id": 1,
+      "username": "Justo.",
+      "date_time": "Sat Jun 27 2015 03:46:40 GMT-0400 (EDT)",
+      "price_range": 4151750,
+      "average_bid": 3527008,
+      "project": "Tristique dictum accumsan cras mollis a bibendum tortor ex. Ornare elit sed leo au posuere faucibus at. Proin metus maecenas nisl eu enim. Iaculis amet tortor commodo. Arcu orci dui sagittis risus. Neque gravida felis dui. Neque massa at leo."
+    },
+    {
+      "id": 2,
+      "username": "Fringilla.",
+      "date_time": "Thu Jun 11 2015 17:41:40 GMT-0400 (EDT)",
+      "price_range": 9345357,
+      "average_bid": 5323491,
+      "project": "Imperdiet dictum iaculis nunc aliquet suscipit mi. Turpis ante dui gravida ac nunc arcu ultricies eget. Consectetur finibus porttitor velit id pulvinar, natoque ex consequat ligula lectus pretium. Proin sit sem sit amet. Pulvinar a suscipit posuere sem id accumsan."
+    },
+    {
+      "id": 3,
+      "username": "Orci.",
+      "date_time": "Fri Jun 19 2015 13:36:05 GMT-0400 (EDT)",
+      "price_range": 2929716,
+      "average_bid": 7387305,
+      "project": "Viverra diam nisi lorem sed enim porttitor, dolor nisl lacinia curabitur. Ac quisque nisl sodales rhoncus ut imperdiet. Ultricies nulla massa adipiscing sodales nam eu augue neque, ligula mauris i quisque, sit iaculis tempus lacus turpis erat ultricies ut nam."
+    },
+    {
+      "id": 4,
+      "username": "Nunc.",
+      "date_time": "Fri Jun 12 2015 20:09:57 GMT-0400 (EDT)",
+      "price_range": 7990942,
+      "average_bid": 7644055,
+      "project": "Vulputate sed laoreet eti maximus mollis faucibus sollicitudin vitae ipsum. Leo nunc tincidunt purus leo augue faucibus eti amet. Ornare pharetra condimentum mauris etiam. Etiam ex e eu. Euismod turpis viverra pharetra fringilla dignissim non leo neque, neque risus consectetur."
+    },
+    {
+      "id": 5,
+      "username": "Eros.",
+      "date_time": "Thu Jun 18 2015 06:52:08 GMT-0400 (EDT)",
+      "price_range": 4171992,
+      "average_bid": 9660342,
+      "project": "At a est eros elementum posuere, etiam tincidunt faucibus mauris ante e, consequat etiam fringilla sem felis scelerisque a blandit eu, placerat dignissim lorem ornare, orci augue lacinia pellentesque ultrices elementum aliquet, hendrerit sapien curabitur natoque justo, sollicitudin i accumsan."
+    },
+    {
+      "id": 6,
+      "username": "Condimentum.",
+      "date_time": "Fri Jun 05 2015 16:18:04 GMT-0400 (EDT)",
+      "price_range": 9832477,
+      "average_bid": 147565,
+      "project": "Nunc mauris sem ultrices cras accumsan. Risus finibus au lacinia. Finibus pulvinar viverra et purus. Risus est vehicula eu suscipit aliquet rhoncus cras, nam fringilla lobortis proin sagittis eget. Cras nam lobortis tempor blandit diam metus. Donec eti dui dui."
+    },
+    {
+      "id": 7,
+      "username": "Sodales.",
+      "date_time": "Fri Jun 12 2015 06:40:33 GMT-0400 (EDT)",
+      "price_range": 6598275,
+      "average_bid": 4564925,
+      "project": "Leo aenean pulvinar lacinia quis fringilla ante iaculis ante. Porttitor consequat nisi ex, dui sapien quisque eget natoque purus dolor vitae. Eu iaculis a sodales leo est ultricies. Dui eros ornare nulla accumsan euismod, augue au mi morbi pellentesque vitae."
+    },
+    {
+      "id": 8,
+      "username": "Consequat.",
+      "date_time": "Tue Jun 16 2015 19:17:17 GMT-0400 (EDT)",
+      "price_range": 5269370,
+      "average_bid": 7321381,
+      "project": "I au ante vel lacinia est etiam scelerisque ornare sapien sapien ipsum erat, dolor tristique quis mattis auctor orci accumsan eu, erat magna sed mauris eros donec vitae tincidunt mollis sollicitudin lacinia aliquet. Viverra sit justo at, amet ut vehicula."
+    },
+    {
+      "id": 9,
+      "username": "Purus.",
+      "date_time": "Sat Jun 27 2015 18:44:58 GMT-0400 (EDT)",
+      "price_range": 2858022,
+      "average_bid": 8081165,
+      "project": "Cursus accumsan cras lacus vehicula lorem, suscipit est etiam eti accumsan, maecenas dui e mauris. Tempus nam tempor quis leo commodo. Non quisque a tempus, in vulputate commodo dui imperdiet tempus imperdiet proin. Elementum sed iaculis est mi ac mollis."
+    }
+  ],
+  "bids": [
+    {
+      "gig_id": 0,
+      "username": "Sollicitudin.",
+      "price": 918,
+      "date_time": "Sat Jun 27 2015 14:04:50 GMT-0400 (EDT)"
+    },
+    {
+      "gig_id": 1,
+      "username": "Commodo.",
+      "price": 795,
+      "date_time": "Mon Jun 08 2015 21:34:57 GMT-0400 (EDT)"
+    },
+    {
+      "gig_id": 2,
+      "username": "Iaculis.",
+      "price": 835,
+      "date_time": "Tue Jun 30 2015 20:33:43 GMT-0400 (EDT)"
+    },
+    {
+      "gig_id": 3,
+      "username": "Sagittis.",
+      "price": 439,
+      "date_time": "Mon Jun 08 2015 16:33:52 GMT-0400 (EDT)"
+    },
+    {
+      "gig_id": 4,
+      "username": "Adipiscing.",
+      "price": 988,
+      "date_time": "Sun Jun 28 2015 19:58:41 GMT-0400 (EDT)"
+    },
+    {
+      "gig_id": 5,
+      "username": "Iaculis.",
+      "price": 988,
+      "date_time": "Sun Jun 07 2015 05:29:52 GMT-0400 (EDT)"
+    },
+    {
+      "gig_id": 6,
+      "username": "Natoque.",
+      "price": 1,
+      "date_time": "Fri Jun 12 2015 10:07:50 GMT-0400 (EDT)"
+    },
+    {
+      "gig_id": 7,
+      "username": "Auctor.",
+      "price": 859,
+      "date_time": "Mon Jun 22 2015 07:16:09 GMT-0400 (EDT)"
+    },
+    {
+      "gig_id": 8,
+      "username": "Orci.",
+      "price": 346,
+      "date_time": "Mon Jun 15 2015 20:34:46 GMT-0400 (EDT)"
+    },
+    {
+      "gig_id": 9,
+      "username": "Vitae.",
+      "price": 966,
+      "date_time": "Mon Jun 01 2015 20:24:38 GMT-0400 (EDT)"
+    }
+  ],
+  "gigs": [
+    {
+      "id": 0,
+      "freelancer": "Velit.",
+      "customer": "Euismod.",
+      "price": 10024,
+      "complete": true,
+      "final_price": 1343
+    },
+    {
+      "id": 1,
+      "freelancer": "Commodo.",
+      "customer": "Vel.",
+      "price": 6294,
+      "complete": true,
+      "final_price": 99088
+    },
+    {
+      "id": 2,
+      "freelancer": "Lectus.",
+      "customer": "Imperdiet.",
+      "price": 840126,
+      "complete": false,
+      "final_price": 62641
+    },
+    {
+      "id": 3,
+      "freelancer": "Condimentum.",
+      "customer": "Natoque.",
+      "price": 919456,
+      "complete": false,
+      "final_price": 94080
+    },
+    {
+      "id": 4,
+      "freelancer": "In.",
+      "customer": "Neque.",
+      "price": 409104,
+      "complete": true,
+      "final_price": 59938
+    }
+  ]
+}
+
