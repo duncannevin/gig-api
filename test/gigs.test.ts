@@ -7,6 +7,9 @@ import app from '../src/App';
 chai.use(chaiHttp);
 const expect = chai.expect;
 
+/**
+* tests get all gigs
+*/
 describe('GET api/gigs', () => {
   it('responds with JSON array', () => {
     return chai.request(app).get('/api/gigs')
@@ -32,6 +35,38 @@ describe('GET api/gigs', () => {
           'complete',
           'final_price'
         ]);
+      });
+  });
+});
+
+/**
+* tests get all gigs based on freelancer username
+*/
+describe('GET api/gigs/freelancer/:freelancer', () => {
+
+  it('should respond with the correct freelancer', () => {
+    return chai.request(app).get('/api/gigs/freelancer/Lectus.')
+      .then(res => {
+        let gigs = res.body;
+
+        expect(gigs).to.be.an('array');
+        expect(gigs).to.have.length(2);
+      });
+  });
+});
+
+/**
+* tests get all gigs based on customer username
+*/
+describe('GET api/gigs/customer/:customer', () => {
+
+  it('should respond with the correct freelancer', () => {
+    return chai.request(app).get('/api/gigs/customer/Velit.')
+      .then(res => {
+        let gigs = res.body;
+
+        expect(gigs).to.be.an('array');
+        expect(gigs).to.have.length(2);
       });
   });
 });

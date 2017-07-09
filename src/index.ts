@@ -34,7 +34,7 @@ function onError(error: NodeJS.ErrnoException): void {
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(`${bind} is already in user`);
+      console.error(`${bind} is already in use`);
       process.exit(1);
       break;
     default:

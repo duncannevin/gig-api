@@ -7,6 +7,9 @@ import app from '../src/App';
 chai.use(chaiHttp);
 const expect = chai.expect;
 
+/**
+* tests get all posted
+*/
 describe('GET api/posted', () => {
   it('responds with JSON array', () => {
     return chai.request(app).get('/api/posted')
@@ -32,6 +35,22 @@ describe('GET api/posted', () => {
           'average_bid',
           'project'
         ]);
+      });
+  });
+});
+
+/**
+* tests getting all posted based on username
+*/
+describe('GET api/posted/user/:username', () => {
+  it('should respond with correct users posts', () => {
+    return chai.request(app).get('/api/posted/user/Purus.')
+      .then(res => {
+        let posts = res.body;
+
+        expect(posts).to.be.an('array');
+        expect(posts).to.have.length(2);
+        expect(posts[0].username).to.equal('Purus.');
       });
   });
 });

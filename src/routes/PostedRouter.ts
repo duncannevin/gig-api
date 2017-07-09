@@ -12,8 +12,22 @@ export class PostedRouter {
   /**
   * GET all Posted
   */
-  public getAll(req: Request, res: Response, nest: NextFunction) {
+  public getAll(req: Request, res: Response, next: NextFunction) {
     res.json(Posted);
+  }
+
+  /**
+  * GET all posted based on username
+  */
+  public getUser(req: Request, res: Response, next: NextFunction) {
+    const userName: string = req.params.username;
+    let posts: [Object] = Posted.filter(post => post.username === userName);
+
+    if (posts === undefined) {
+      res.status(404).json('No posts found with that username');
+    } else {
+      res.json(posts);
+    }
   }
 
   /**
@@ -22,6 +36,7 @@ export class PostedRouter {
   init() {
     // Add end points here
     this.router.get('/', this.getAll);
+    this.router.get('/user/:username', this.getUser);
   }
 }
 

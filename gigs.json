@@ -1,11 +1,19 @@
 [
   {
     "id": 0,
-    "freelancer": "Velit.",
-    "customer": "Euismod.",
+    "freelancer": "Euismod.",
+    "customer": "Velit.",
     "price": 10024,
     "complete": true,
     "final_price": 1343
+  },
+  {
+    "id": 2,
+    "freelancer": "Lectus.",
+    "customer": "Imperdiet.",
+    "price": 840126,
+    "complete": false,
+    "final_price": 62641
   },
   {
     "id": 1,
@@ -26,17 +34,9 @@
   {
     "id": 3,
     "freelancer": "Condimentum.",
-    "customer": "Natoque.",
+    "customer": "Velit.",
     "price": 919456,
     "complete": false,
     "final_price": 94080
-  },
-  {
-    "id": 4,
-    "freelancer": "In.",
-    "customer": "Neque.",
-    "price": 409104,
-    "complete": true,
-    "final_price": 59938
   }
 ]

@@ -7,6 +7,9 @@ import app from '../src/App';
 chai.use(chaiHttp);
 const expect = chai.expect;
 
+/**
+* tests get all bids
+*/
 describe('GET api/bids', () => {
   it('responds with JSON array', () => {
     return chai.request(app).get('/api/bids')
@@ -18,7 +21,7 @@ describe('GET api/bids', () => {
       });
   });
 
-  it('should include Tempor.', () => {
+  it('should include Iaculis.', () => {
     return chai.request(app).get('/api/bids')
       .then(res => {
         let Tempor = res.body.find(user => user.username === 'Iaculis.');
@@ -30,6 +33,36 @@ describe('GET api/bids', () => {
           'price',
           'date_time'
         ]);
+      });
+  });
+});
+
+/**
+* tests get all bids based on gig_id
+*/
+describe('GET api/bids/gig/:gig_id', () => {
+  it('should respond with appropriate bids', () => {
+    return chai.request(app).get('/api/bids/gig/1')
+      .then(res => {
+        let one = res.body;
+
+        expect(one).to.be.an('array');
+        expect(one).to.have.length(4);
+      });
+  });
+});
+
+/**
+* tests get all bids based on username
+*/
+describe('GET api/bids/biduser/:username', () => {
+  it('should respond with appropriate bids', () => {
+    return chai.request(app).get('/api/bids/user/Iaculis.')
+      .then(res => {
+        let one = res.body;
+
+        expect(one).to.be.an('array');
+        expect(one).to.have.length(2);
       });
   });
 });
