@@ -33,7 +33,8 @@ describe('GET api/posted', () => {
           'date_time',
           'price_range',
           'average_bid',
-          'project'
+          'project',
+          'app_id',
         ]);
       });
   });

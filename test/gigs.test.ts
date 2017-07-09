@@ -33,7 +33,8 @@ describe('GET api/gigs', () => {
           'customer',
           'price',
           'complete',
-          'final_price'
+          'final_price',
+          'app_id',
         ]);
       });
   });

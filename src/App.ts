@@ -8,6 +8,7 @@ import BidsRouter from './routes/BidsRouter';
 import GigsRouter from './routes/GigsRouter';
 import PostedRouter from './routes/PostedRouter';
 import UsersRouter from './routes/UsersRouter';
+import AppIdsRouter from './routes/AppIdsRouter';
 
 // Creates and configures an ExpressJS web server.
 class App {
@@ -41,6 +42,7 @@ class App {
     this.express.use('/api/gigs', GigsRouter);
     this.express.use('/api/posted', PostedRouter);
     this.express.use('/api/users', UsersRouter);
+    this.express.use('/api/apps', AppIdsRouter);
   }
 }
 

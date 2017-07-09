@@ -32,6 +32,7 @@ describe('GET api/users', () => {
           'profile_pic_url',
           'joined_date',
           'rating',
+          'app_id',
         ]);
       });
   });
@@ -52,15 +53,6 @@ describe('GET api/users/getone/:username', () => {
       .then(res => {
         expect(res.status).to.equal(200);
         expect(res.body.username).to.equal('Commodo.');
-        expect(res.body).to.have.all.keys([
-          'id',
-          'username',
-          'first_name',
-          'last_name',
-          'profile_pic_url',
-          'joined_date',
-          'rating',
-        ]);
       });
   });
 });

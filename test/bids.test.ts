@@ -31,7 +31,8 @@ describe('GET api/bids', () => {
           'gig_id',
           'username',
           'price',
-          'date_time'
+          'date_time',
+          'app_id',
         ]);
       });
   });
