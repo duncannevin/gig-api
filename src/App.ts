@@ -3,8 +3,11 @@ import * as express from 'express';
 import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
 
-// import HeroRouter from './routes/HeroRouter';
-import UserRouter from './routes/UserRouter';
+// Router paths
+import BidsRouter from './routes/BidsRouter';
+import GigsRouter from './routes/GigsRouter';
+import PostedRouter from './routes/PostedRouter';
+import UsersRouter from './routes/UsersRouter';
 
 // Creates and configures an ExpressJS web server.
 class App {
@@ -33,10 +36,11 @@ class App {
     * API endpoints.
     */
     let router = express.Router();
-    this.express.use('/', router);
     // Add routes here
-    // this.express.use('/api/v1/heroes', HeroRouter);
-    this.express.use('/api/users', UserRouter);
+    this.express.use('/api/bids', BidsRouter);
+    this.express.use('/api/gigs', GigsRouter);
+    this.express.use('/api/posted', PostedRouter);
+    this.express.use('/api/users', UsersRouter);
   }
 }
 
