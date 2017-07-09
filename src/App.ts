@@ -3,12 +3,13 @@ import * as express from 'express';
 import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
 
-import HeroRouter from './routes/HeroRouter';
+// import HeroRouter from './routes/HeroRouter';
+import UserRouter from './routes/UserRouter';
 
 // Creates and configures an ExpressJS web server.
 class App {
 
-  // ref to Espress instance
+  // ref to Express instance
   public express: express.Application;
 
   // Run configuration methods on the Express instance.
@@ -34,7 +35,8 @@ class App {
     let router = express.Router();
     this.express.use('/', router);
     // Add routes here
-    this.express.use('/api/v1/heroes', HeroRouter);
+    // this.express.use('/api/v1/heroes', HeroRouter);
+    this.express.use('/api/users', UserRouter);
   }
 }
 
