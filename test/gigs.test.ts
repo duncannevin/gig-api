@@ -35,6 +35,8 @@ describe('GET api/gigs', () => {
           'complete',
           'final_price',
           'app_id',
+          'customer_rating',
+          'freelancer_rating'
         ]);
       });
   });

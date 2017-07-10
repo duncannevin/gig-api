@@ -1,5 +1,5 @@
 import {Router, Request, Response, NextFunction} from 'express';
-const Gigs = require('../../gigs');
+const Gigs = require('../../Seed/gigs');
 
 export class GigsRouter {
   router: Router

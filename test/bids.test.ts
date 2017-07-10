@@ -28,11 +28,12 @@ describe('GET api/bids', () => {
 
         expect(Tempor).to.exist;
         expect(Tempor).to.have.all.keys([
-          'gig_id',
+          'posted_id',
           'username',
           'price',
           'date_time',
           'app_id',
+          'id'
         ]);
       });
   });

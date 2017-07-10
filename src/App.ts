@@ -10,6 +10,9 @@ import PostedRouter from './routes/PostedRouter';
 import UsersRouter from './routes/UsersRouter';
 import AppIdsRouter from './routes/AppIdsRouter';
 
+// SchemaConfig
+import SchemaConfig from './db/Config';
+
 // Creates and configures an ExpressJS web server.
 class App {
 
@@ -21,6 +24,12 @@ class App {
     this.express = express();
     this.middleware();
     this.routes();
+    this.schema();
+  }
+
+  // Configure mysql schema
+  private schema(): void {
+    SchemaConfig();
   }
 
   // Configure express middleware

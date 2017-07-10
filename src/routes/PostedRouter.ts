@@ -1,5 +1,5 @@
 import {Router, Request, Response, NextFunction} from 'express';
-const Posted = require('../../posted');
+const Posted = require('../../Seed/posted');
 
 export class PostedRouter {
   router: Router

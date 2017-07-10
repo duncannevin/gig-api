@@ -1,5 +1,5 @@
 import {Router, Request, Response, NextFunction} from 'express';
-const Bids = require('../../bids'); // Will switch to db later
+const Bids = require('../../Seed/bids'); // Will switch to db later
 
 export class BidsRouter {
   router: Router

@@ -32,9 +32,9 @@ describe('GET api/posted', () => {
           'username',
           'date_time',
           'price_range',
-          'average_bid',
           'project',
           'app_id',
+          'skills',
         ]);
       });
   });

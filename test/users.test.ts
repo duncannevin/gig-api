@@ -30,8 +30,7 @@ describe('GET api/users', () => {
           'first_name',
           'last_name',
           'profile_pic_url',
-          'joined_date',
-          'rating',
+          'created_at',
           'app_id',
         ]);
       });
@@ -53,6 +52,24 @@ describe('GET api/users/getone/:username', () => {
       .then(res => {
         expect(res.status).to.equal(200);
         expect(res.body.username).to.equal('Commodo.');
+      });
+  });
+});
+
+describe('POST api/users/', () => {
+  it('should post a new user', () => {
+    return chai.request(app).post('/api/users/').send({
+      "app_id": "1",
+      "id": 2,
+      "username": "Id.",
+      "first_name": "Janett",
+      "last_name": "Brier",
+      "profile_pic_url": "img2.png",
+      "created_at": "Tue Jun 23 2015 03:39:53 GMT-0400 (EDT)"
+    })
+      .then(res => {
+        expect(res.status).to.equal(201);
+        expect(res.body.warningCount).should.equal(0);
       });
   });
 });
