@@ -9,9 +9,14 @@ Importer.config({
 export class SchemaConfig {
   constructor() {}
 
-  importSchema(): void {
+  importSchema(cb): void {
     Importer.importSQL('./src/db/schema.sql')
-      .then(success => console.log('SCHEMA SUCCESS'))
+      .then(success => {
+        console.log('SCHEMA SUCCESS');
+        if (cb !== undefined) {
+          cb();
+        }
+      })
       .catch(err => console.log('SCHEMA FAILED', err));
   }
 }

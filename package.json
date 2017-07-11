@@ -4,6 +4,7 @@
   "description": "RESTful api for use with app for freelancers.",
   "main": "index.js",
   "scripts": {
+    "seed": "node seed/Plant.js",
     "start": "node dist/index.js",
     "build": "exec gulp scripts",
     "dev": "exec gulp",

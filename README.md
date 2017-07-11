@@ -69,3 +69,16 @@ npm start
 # test
 npm test
 ```
+
+## Seed DB ##
+
+```
+# build app
+npm run build
+
+# start app
+npm run liveserve
+
+# in a new terminal
+npm run seed
+```

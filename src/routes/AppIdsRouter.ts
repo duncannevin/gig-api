@@ -15,6 +15,9 @@ export class AppsRouter {
   */
   public getAll(req: Request, res: Response, next: NextFunction) {
 
+    const queryStr: string = `
+    `;
+
     switch(req.headers.king_key) {
       case 'whereareyou':
         res.json(Apps);
@@ -55,7 +58,7 @@ export class AppsRouter {
   * POST a new app also updates the app
   */
   public addOne = (req: Request, res: Response, next: NextFunction): void => {
-    const queryStr = `
+    const queryStr: string = `
       INSERT INTO apps (app_id, access_key)
       VALUES (?, ?)
       ON DUPLICATE KEY UPDATE
