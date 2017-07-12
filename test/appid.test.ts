@@ -88,6 +88,7 @@ describe('POST app/apps/', () => {
     .set('ACCESS_KEY', '12345')
     .send({access_key: 'lockit'})
       .then(res => {
+        expect(res.body).to.have.property('app_id');
         expect(res).to.have.status(200);
       });
 

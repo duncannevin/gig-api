@@ -1,6 +1,7 @@
 import {Router, Request, Response, NextFunction} from 'express';
 import HandleDatabase from '../db/HandleDatabase';
 import * as _ from 'underscore';
+const uId = require('uid');
 
 export class AppsRouter {
   router: Router
@@ -66,7 +67,7 @@ export class AppsRouter {
   }
 
   private createAppId(): string {
-    return "testingitout";
+    return `gig${uId(20)}`;
   }
 
   /**
@@ -75,11 +76,7 @@ export class AppsRouter {
   public addOne = (req: Request, res: Response, next: NextFunction): void => {
     const queryStr: string = `
       INSERT INTO apps (app_id, access_key)
-      VALUES (?, ?)
-      ON DUPLICATE KEY UPDATE
-      app_id=VALUES(app_id),
-      access_key=VALUES(access_key)
-    `;
+      VALUES (?, ?)`;
 
     let appId: string = !req.body.app_id ? this.createAppId() : req.body.app_id;
 
@@ -88,6 +85,7 @@ export class AppsRouter {
         res.status(404).json('Post new app failed');
         return;
       } else {
+        data.app_id = appId;
         res.json(data);
       }
     });

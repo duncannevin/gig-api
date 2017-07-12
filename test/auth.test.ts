@@ -15,7 +15,7 @@ describe('Tests if access key lock works', () => {
       .then(res => {
       })
       .catch(err => {
-        expect(err.status).to.equal(403);
+        expect(err.status).to.equal(302);
       });
   });
 
