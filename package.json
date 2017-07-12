@@ -24,6 +24,7 @@
     "@types/morgan": "^1.7.32",
     "@types/mysql": "0.0.34",
     "@types/node": "^6.0.46",
+    "@types/underscore": "^1.8.1",
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
     "gulp": "^3.9.1",
@@ -39,7 +40,8 @@
     "http": "0.0.0",
     "morgan": "^1.7.0",
     "mysql": "^2.13.0",
-    "node-mysql-importer": "0.0.10"
+    "node-mysql-importer": "0.0.10",
+    "underscore": "^1.8.3"
   },
   "engines": {
     "node": ">= 4.0.0",

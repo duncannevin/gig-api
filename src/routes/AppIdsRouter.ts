@@ -1,6 +1,6 @@
 import {Router, Request, Response, NextFunction} from 'express';
-const Apps = require('../../Seed/apps'); // Will switch to db later
 import HandleDatabase from '../db/HandleDatabase';
+import * as _ from 'underscore';
 
 export class AppsRouter {
   router: Router
@@ -16,11 +16,19 @@ export class AppsRouter {
   public getAll(req: Request, res: Response, next: NextFunction) {
 
     const queryStr: string = `
+      SELECT * FROM apps
     `;
 
     switch(req.headers.king_key) {
       case 'whereareyou':
-        res.json(Apps);
+        HandleDatabase([], queryStr, (err, data) => {
+          if (err) {
+            res.status(404).json('Apps getAll failed');
+            return;
+          } else {
+            res.json(data);
+          }
+        });
         return;
       default:
         res.status(403).json('Forbidden');
@@ -35,16 +43,23 @@ export class AppsRouter {
 
     switch(req.headers.king_key) {
       case 'whereareyou':
-        const appId: string = req.params.app_id;
-        let app: Object = Apps.find(app => app.app_id === appId);
 
-        if (app === undefined) {
-          res.status(404).json('No apps found by that id');
-          return;
-        } else {
-          res.json(app);
-          return;
-        }
+        const appId = req.params.app_id;
+
+        const queryStr: string = `
+          SELECT * FROM apps
+          WHERE app_id=?
+        `;
+
+        HandleDatabase([appId], queryStr, (err, data) => {
+          if (err) {
+            res.status(404).json('No app with that id found');
+            return;
+          } else {
+            res.json(data);
+          }
+        });
+      return;
       default:
         res.status(403).json('Forbidden');
     }
@@ -65,9 +80,10 @@ export class AppsRouter {
       app_id=VALUES(app_id),
       access_key=VALUES(access_key)
     `;
+
     let appId: string = !req.body.app_id ? this.createAppId() : req.body.app_id;
 
-    HandleDatabase([appId, req.body.key], queryStr, (err, data) => {
+    HandleDatabase([appId, req.body.access_key], queryStr, (err, data) => {
       if (err) {
         res.status(404).json('Post new app failed');
         return;

@@ -72,6 +72,8 @@ npm test
 
 ## Seed DB ##
 
+Tests will not pass without this seed added!
+
 ```
 # build app
 npm run build

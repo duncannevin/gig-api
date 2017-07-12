@@ -14,17 +14,14 @@ describe('GET api/users', () => {
         expect(res.status).to.equal(200);
         expect(res).to.be.json;
         expect(res.body).to.be.an('array');
-        expect(res.body).to.have.length(20);
       });
   });
 
-  it('should include Tempor.', () => {
+  it('should include all correct properties', () => {
     return chai.request(app).get('/api/users')
       .then(res => {
-        let Tempor = res.body.find(user => user.username === 'Tempor.');
 
-        expect(Tempor).to.exist;
-        expect(Tempor).to.have.all.keys([
+        expect(res.body[0]).to.have.all.keys([
           'id',
           'username',
           'first_name',
@@ -39,19 +36,20 @@ describe('GET api/users', () => {
 
 describe('GET api/users/getone/:username', () => {
   it('should respond with JSON object', () => {
-    return chai.request(app).get('/api/users/Commodo.')
+    return chai.request(app).get('/api/users/Farfegnutty.')
       .then(res => {
         expect(res.status).to.equal(200);
         expect(res).to.be.json;
-        expect(res.body).to.be.an('object');
+        expect(res.body).to.be.an('array');
       });
   });
 
   it('should respond with correct information', () => {
-    return chai.request(app).get('/api/users/Commodo.')
+    return chai.request(app).get('/api/users/Farfegnutty.')
       .then(res => {
         expect(res.status).to.equal(200);
-        expect(res.body.username).to.equal('Commodo.');
+        expect(res.body[0].username).to.equal('Farfegnutty.');
+        expect(res.body).to.have.length(1);
       });
   });
 });
@@ -59,17 +57,16 @@ describe('GET api/users/getone/:username', () => {
 describe('POST api/users/', () => {
   it('should post a new user', () => {
     return chai.request(app).post('/api/users/').send({
-      "app_id": "1",
-      "id": 2,
+      "app_id": "12345",
       "username": "Id.",
       "first_name": "Janett",
       "last_name": "Brier",
-      "profile_pic_url": "img2.png",
-      "created_at": "Tue Jun 23 2015 03:39:53 GMT-0400 (EDT)"
+      "profile_pic_url": "img2.png"
     })
       .then(res => {
         expect(res.status).to.equal(201);
-        expect(res.body.warningCount).should.equal(0);
+        expect(res.body.warningCount).to.equal(0);
+        expect(res.body.affectedRows).to.equal(1);
       });
   });
 });

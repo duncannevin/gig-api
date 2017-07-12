@@ -1,5 +1,6 @@
 import {Router, Request, Response, NextFunction} from 'express';
-const Bids = require('../../Seed/bids'); // Will switch to db later
+import HandleDatabase from '../db/HandleDatabase';
+import * as _ from 'underscore';
 
 export class BidsRouter {
   router: Router
@@ -13,21 +14,38 @@ export class BidsRouter {
   * GET all bids
   */
   public getAll(req: Request, res: Response, next: NextFunction) {
-    res.json(Bids);
+    const queryStr: string = `
+      SELECT * FROM bids
+    `;
+
+    HandleDatabase([], queryStr, (err, data) => {
+      if (err) {
+        res.status(404).json('Oops something went wrong');
+        return;
+      } else {
+        res.json(data);
+      }
+    });
   }
 
   /**
-  * GET all bids based on gig_id
+  * GET all bids based on posted_id
   */
   public bidGig(req: Request, res: Response, next: NextFunction) {
-    const gigId: string = req.params.gig_id;
-    let bids: [Object] = Bids.filter(bid => bid.gig_id === parseInt(gigId));
+    const postedId: string = req.params.posted_id;
 
-    if (bids === undefined) {
-      res.status(404).json('No bids found with that gig_id');
-    } else {
-      res.json(bids);
-    }
+    const queryStr: string = `
+      SELECT * FROM bids
+      WHERE posted_id=?
+    `;
+
+    HandleDatabase([postedId], queryStr, (err, data) => {
+      if (err) {
+        res.status(404).json('No bids for that post yet');
+      } else {
+        res.json(data);
+      }
+    });
   }
 
   /**
@@ -35,13 +53,45 @@ export class BidsRouter {
   */
   public bidUser(req: Request, res: Response, next: NextFunction) {
     const userName: string = req.params.username;
-    let bids: [Object] = Bids.filter(bid => bid.username === userName);
 
-    if (bids === undefined) {
-      res.status(404).json('No bids found with that username');
-    } else {
-      res.json(bids);
-    }
+    const queryStr: string = `
+      SELECT * FROM bids
+      WHERE username=?
+    `;
+
+    HandleDatabase([userName], queryStr, (err, data) => {
+      if (err) {
+        res.status(404).json('No bids by that username found');
+        return;
+      } else {
+        res.json(data);
+      }
+    });
+  }
+
+  /**
+  * POST a new bid
+  */
+  public addOne(req: Request, res: Response, next: NextFunction) {
+    const queryStr: string = `
+      INSERT INTO bids (app_id, posted_id, username, price)
+      VALUES (?, ?, ?, ?)
+      ON DUPLICATE KEY UPDATE
+      app_id=VALUES(app_id),
+      posted_id=VALUES(posted_id),
+      username=VALUES(username),
+      price=VALUES(price)
+    `;
+
+    HandleDatabase(_.values(req.body), queryStr, (err, data) => {
+      if (err) {
+        console.log(err.message);
+        res.status(404).json('Oops something went wrong');
+        return;
+      } else {
+        res.status(201).json(data);
+      }
+    });
   }
 
   /**
@@ -49,8 +99,9 @@ export class BidsRouter {
   */
   init() {
     this.router.get('/', this.getAll);
-    this.router.get('/gig/:gig_id', this.bidGig);
-    this.router.get('/user/:username', this.bidUser);
+    this.router.get('/postedid/:posted_id', this.bidGig);
+    this.router.get('/username/:username', this.bidUser);
+    this.router.post('/', this.addOne);
   }
 }
 

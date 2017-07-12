@@ -17,18 +17,15 @@ describe('GET api/posted', () => {
         expect(res.status).to.equal(200);
         expect(res).to.be.json;
         expect(res.body).to.be.an('array');
-        expect(res.body).to.have.length(10);
       });
   });
 
-  it('should include Tempor.', () => {
+  it('should include correct properties', () => {
     return chai.request(app).get('/api/posted')
       .then(res => {
-        let Condimentum = res.body.find(post => post.username === 'Condimentum.');
-
-        expect(Condimentum).to.exist;
-        expect(Condimentum).to.have.all.keys([
+        expect(res.body[0]).to.have.all.keys([
           'id',
+          'posted_id',
           'username',
           'date_time',
           'price_range',
@@ -45,13 +42,33 @@ describe('GET api/posted', () => {
 */
 describe('GET api/posted/user/:username', () => {
   it('should respond with correct users posts', () => {
-    return chai.request(app).get('/api/posted/user/Purus.')
+    return chai.request(app).get('/api/posted/user/Tempor.')
       .then(res => {
         let posts = res.body;
 
         expect(posts).to.be.an('array');
-        expect(posts).to.have.length(2);
-        expect(posts[0].username).to.equal('Purus.');
+        expect(posts[0].username).to.equal('Tempor.');
+      });
+  });
+});
+
+/**
+* tests adding a post to posted
+*/
+describe('POST api/posted/', () => {
+  it('should post a new post', () => {
+    return chai.request(app).post('/api/posted')
+    .send({
+      posted_id: '12345',
+      username: 'Id.',
+      price_range: '10 - 29',
+      project: 'Mow my lawn three times per week',
+      app_id: '12345',
+      skills: "['book', 'run', 'jump']"
+    })
+      .then(res => {
+        expect(res.body.warningCount).to.equal(0);
+        expect(res.body.affectedRows).to.equal(1);
       });
   });
 });

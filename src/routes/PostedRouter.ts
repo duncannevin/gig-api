@@ -1,5 +1,6 @@
 import {Router, Request, Response, NextFunction} from 'express';
-const Posted = require('../../Seed/posted');
+import HandleDatabase from '../db/HandleDatabase';
+import * as _ from 'underscore';
 
 export class PostedRouter {
   router: Router
@@ -13,7 +14,18 @@ export class PostedRouter {
   * GET all Posted
   */
   public getAll(req: Request, res: Response, next: NextFunction) {
-    res.json(Posted);
+    const queryStr: string = `
+      SELECT * FROM posted
+    `;
+
+    HandleDatabase([], queryStr, (err, data) => {
+      if (err) {
+        res.status(404).json('Oops something went wrong');
+        return;
+      } else {
+        res.json(data);
+      }
+    });
   }
 
   /**
@@ -21,13 +33,42 @@ export class PostedRouter {
   */
   public getUser(req: Request, res: Response, next: NextFunction) {
     const userName: string = req.params.username;
-    let posts: [Object] = Posted.filter(post => post.username === userName);
 
-    if (posts === undefined) {
-      res.status(404).json('No posts found with that username');
-    } else {
-      res.json(posts);
-    }
+    const queryStr: string = `
+      SELECT * FROM posted
+      WHERE username=?
+    `;
+
+    HandleDatabase([userName], queryStr, (err, data) => {
+      if (err) {
+        res.status(404).json('No posts with that id');
+        return;
+      } else {
+        res.json(data);
+      }
+    });
+  }
+
+  /**
+  * POST a new post
+  */
+  public addOne(req: Request, res: Response, next: NextFunction) {
+    const queryStr = `
+      INSERT INTO posted (${_.keys(req.body).join(',')})
+      VALUES (${_.map(req.body, noth => '?').join(',')})
+      ON DUPLICATE KEY UPDATE
+      ${_.map(req.body, (val, key) => '\n' + key + '=VALUES(' + key + ')')}
+    `;
+
+    HandleDatabase(_.values(req.body), queryStr, (err, data) => {
+      if (err) {
+        console.log(err.message);
+        res.status(404).json('Oops something went wrong');
+        return;
+      } else {
+        res.json(data);
+      }
+    });
   }
 
   /**
@@ -37,6 +78,7 @@ export class PostedRouter {
     // Add end points here
     this.router.get('/', this.getAll);
     this.router.get('/user/:username', this.getUser);
+    this.router.post('/', this.addOne);
   }
 }
 

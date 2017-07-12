@@ -1,6 +1,6 @@
 import {Router, Request, Response, NextFunction} from 'express';
-const Users = require('../../Seed/users'); // Will switch to db later
 import HandleDatabase from '../db/HandleDatabase';
+import * as _ from 'underscore';
 
 export class UsersRouter {
   router: Router
@@ -14,7 +14,18 @@ export class UsersRouter {
   * GET all users
   */
   public getAll(req: Request, res: Response, next: NextFunction) {
-    res.json(Users);
+    const queryStr: string = `
+      SELECT * FROM users
+    `;
+
+    HandleDatabase([], queryStr, (err, data) => {
+      if (err) {
+        res.status(404).json('Oops something went wrong');
+        return;
+      } else {
+        res.json(data);
+      }
+    });
   }
 
   /**
@@ -22,13 +33,19 @@ export class UsersRouter {
   */
   public getOne(req: Request, res: Response, next: NextFunction) {
     const username: string = req.params.username;
-    let userProfile: Object = Users.find(user => user.username === username);
 
-    if (userProfile === undefined) {
-      res.status(404).json('No user by that name found');
-    } else {
-      res.json(userProfile);
-    }
+    const queryStr: string = `
+      SELECT * FROM users
+      WHERE username=?
+    `;
+
+    HandleDatabase([username], queryStr, (err, data) => {
+      if (err) {
+        res.status(404).json('No user by that username found');
+      } else {
+        res.json(data);
+      }
+    });
   }
 
   /**
@@ -46,13 +63,12 @@ export class UsersRouter {
       profile_pic_url=VALUES(profile_pic_url)
     `;
 
-    HandleDatabase([req.body.app_id, req.body.username, req.body.first_name,
-      req.body.last_name, req.body.profile_pic_url], queryStr, (err, data) => {
+    HandleDatabase(_.values(req.body), queryStr, (err, data) => {
       if (err) {
         res.status(404).json('Post new app failed');
         return;
       } else {
-        res.json(data);
+        res.status(201).json(data);
       }
     });
   }

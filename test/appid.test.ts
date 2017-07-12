@@ -31,7 +31,6 @@ describe('GET api/apps', () => {
         expect(res.status).to.equal(200);
         expect(res).to.be.json;
         expect(res.body).to.be.an('array');
-        expect(res.body).to.have.length(2);
       });
   });
 
@@ -44,7 +43,7 @@ describe('GET api/apps', () => {
         expect(appId).to.have.all.keys([
           'id',
           'app_id',
-          'key'
+          'access_key'
         ]);
       });
   });
@@ -59,8 +58,38 @@ describe('GET api/apps/getone/:app_id', () => {
       .then(res => {
         const app = res.body;
 
-        expect(app).to.be.an('object');
-        expect(app.id).to.equal('1');
+        expect(app).to.be.an('array');
+        expect(app).to.have.length(1);
+        expect(app[0].app_id).to.equal('67890');
+        expect(app[0].access_key).to.equal('12345');
+      });
+  });
+});
+
+/**
+* tests post request to apps
+*/
+describe('POST app/apps/', () => {
+  it('should add a single entry to apps', () => {
+    return chai.request(app)
+    .post('/api/apps/')
+    .set('KING_KEY', 'whereareyou')
+    .send({access_key: 'lockit'})
+      .then(res => {
+        expect(res).to.have.status(200);
+      });
+
+  });
+
+  it('should have created an app_id when one is not added', () => {
+    return chai.request(app).get('/api/apps/getone/testingitout').set('KING_KEY', 'whereareyou')
+      .then(res => {
+        const app = res.body;
+
+        expect(app).to.be.an('array');
+        expect(app).to.have.length(1);
+        expect(app[0].app_id).to.equal('testingitout');
+        expect(app[0].access_key).to.equal('lockit');
       });
   });
 });

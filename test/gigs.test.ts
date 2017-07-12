@@ -17,27 +17,47 @@ describe('GET api/gigs', () => {
         expect(res.status).to.equal(200);
         expect(res).to.be.json;
         expect(res.body).to.be.an('array');
-        expect(res.body).to.have.length(5);
       });
   });
 
-  it('should include Lectus.', () => {
+  it('should include correct properties', () => {
     return chai.request(app).get('/api/gigs')
       .then(res => {
-        let Lectus = res.body.find(gig => gig.freelancer === 'Lectus.');
-
-        expect(Lectus).to.exist;
-        expect(Lectus).to.have.all.keys([
+        expect(res.body[0]).to.have.all.keys([
           'id',
+          'app_id',
           'freelancer',
           'customer',
           'price',
           'complete',
           'final_price',
-          'app_id',
-          'customer_rating',
-          'freelancer_rating'
+          'freelancer_rating',
+          'customer_rating'
         ]);
+      });
+  });
+});
+
+/**
+* tests post a new gig to the gigs table
+*/
+describe('POST api/gigs/', () => {
+
+  it('should add a new gig', () => {
+    return chai.request(app).post('/api/gigs/')
+    .send({
+      app_id: '12345',
+      freelancer: 'Ultrices.',
+      customer: 'Nibh.',
+      price: 10,
+      complete: false,
+      final_price: 0,
+      freelancer_rating: -1,
+      customer_rating: -1
+    })
+      .then(res => {
+        expect(res.body.warningCount).to.equal(0);
+        expect(res.body.affectedRows).to.equal(1);
       });
   });
 });
@@ -48,12 +68,13 @@ describe('GET api/gigs', () => {
 describe('GET api/gigs/freelancer/:freelancer', () => {
 
   it('should respond with the correct freelancer', () => {
-    return chai.request(app).get('/api/gigs/freelancer/Lectus.')
+    return chai.request(app).get('/api/gigs/freelancer/Farfegnutty.')
       .then(res => {
         let gigs = res.body;
 
         expect(gigs).to.be.an('array');
-        expect(gigs).to.have.length(2);
+        expect(gigs).to.have.length(5);
+        expect(gigs[gigs.length-1].freelancer).to.equal('Farfegnutty.');
       });
   });
 });
@@ -63,13 +84,13 @@ describe('GET api/gigs/freelancer/:freelancer', () => {
 */
 describe('GET api/gigs/customer/:customer', () => {
 
-  it('should respond with the correct freelancer', () => {
-    return chai.request(app).get('/api/gigs/customer/Velit.')
+  it('should respond with the correct customer', () => {
+    return chai.request(app).get('/api/gigs/customer/Nibh.')
       .then(res => {
         let gigs = res.body;
 
         expect(gigs).to.be.an('array');
-        expect(gigs).to.have.length(2);
+        expect(gigs[0].freelancer).to.equal('Ultrices.');
       });
   });
 });
