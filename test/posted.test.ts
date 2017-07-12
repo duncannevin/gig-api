@@ -12,7 +12,9 @@ const expect = chai.expect;
 */
 describe('GET api/posted', () => {
   it('responds with JSON array', () => {
-    return chai.request(app).get('/api/posted')
+    return chai.request(app)
+    .get('/api/posted')
+    .set('ACCESS_KEY', '12345')
       .then(res => {
         expect(res.status).to.equal(200);
         expect(res).to.be.json;
@@ -21,7 +23,9 @@ describe('GET api/posted', () => {
   });
 
   it('should include correct properties', () => {
-    return chai.request(app).get('/api/posted')
+    return chai.request(app)
+    .get('/api/posted')
+    .set('ACCESS_KEY', '12345')
       .then(res => {
         expect(res.body[0]).to.have.all.keys([
           'id',
@@ -42,7 +46,9 @@ describe('GET api/posted', () => {
 */
 describe('GET api/posted/user/:username', () => {
   it('should respond with correct users posts', () => {
-    return chai.request(app).get('/api/posted/user/Tempor.')
+    return chai.request(app)
+    .get('/api/posted/user/Tempor.')
+    .set('ACCESS_KEY', '12345')
       .then(res => {
         let posts = res.body;
 
@@ -57,7 +63,9 @@ describe('GET api/posted/user/:username', () => {
 */
 describe('POST api/posted/', () => {
   it('should post a new post', () => {
-    return chai.request(app).post('/api/posted')
+    return chai.request(app)
+    .post('/api/posted')
+    .set('ACCESS_KEY', '12345')
     .send({
       posted_id: '12345',
       username: 'Id.',

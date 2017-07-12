@@ -9,7 +9,9 @@ const expect = chai.expect;
 
 describe('GET api/users', () => {
   it('responds with JSON array', () => {
-    return chai.request(app).get('/api/users')
+    return chai.request(app)
+    .get('/api/users')
+    .set('ACCESS_KEY', '12345')
       .then(res => {
         expect(res.status).to.equal(200);
         expect(res).to.be.json;
@@ -18,7 +20,9 @@ describe('GET api/users', () => {
   });
 
   it('should include all correct properties', () => {
-    return chai.request(app).get('/api/users')
+    return chai.request(app)
+    .get('/api/users')
+    .set('ACCESS_KEY', '12345')
       .then(res => {
 
         expect(res.body[0]).to.have.all.keys([
@@ -36,7 +40,9 @@ describe('GET api/users', () => {
 
 describe('GET api/users/getone/:username', () => {
   it('should respond with JSON object', () => {
-    return chai.request(app).get('/api/users/Farfegnutty.')
+    return chai.request(app)
+    .get('/api/users/Farfegnutty.')
+    .set('ACCESS_KEY', '12345')
       .then(res => {
         expect(res.status).to.equal(200);
         expect(res).to.be.json;
@@ -45,7 +51,9 @@ describe('GET api/users/getone/:username', () => {
   });
 
   it('should respond with correct information', () => {
-    return chai.request(app).get('/api/users/Farfegnutty.')
+    return chai.request(app)
+    .get('/api/users/Farfegnutty.')
+    .set('ACCESS_KEY', '12345')
       .then(res => {
         expect(res.status).to.equal(200);
         expect(res.body[0].username).to.equal('Farfegnutty.');
@@ -56,7 +64,10 @@ describe('GET api/users/getone/:username', () => {
 
 describe('POST api/users/', () => {
   it('should post a new user', () => {
-    return chai.request(app).post('/api/users/').send({
+    return chai.request(app)
+    .post('/api/users/')
+    .set('ACCESS_KEY', '12345')
+    .send({
       "app_id": "12345",
       "username": "Id.",
       "first_name": "Janett",

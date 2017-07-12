@@ -10,6 +10,9 @@ import PostedRouter from './routes/PostedRouter';
 import UsersRouter from './routes/UsersRouter';
 import AppIdsRouter from './routes/AppIdsRouter';
 
+// Auth
+import Auth from './Auth';
+
 // SchemaConfig
 import SchemaConfig from './db/Config';
 
@@ -34,6 +37,9 @@ class App {
 
   // Configure express middleware
   private middleware(): void {
+    this.express.use((req, res, next) => {
+      Auth(req, res, next);
+    });
     this.express.use(logger('dev'));
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({extended: false}));

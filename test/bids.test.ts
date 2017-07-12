@@ -12,7 +12,9 @@ const expect = chai.expect;
 */
 describe('GET api/bids', () => {
   it('responds with JSON array', () => {
-    return chai.request(app).get('/api/bids')
+    return chai.request(app)
+    .get('/api/bids')
+    .set('ACCESS_KEY', '12345')
       .then(res => {
         expect(res.status).to.equal(200);
         expect(res).to.be.json;
@@ -21,7 +23,9 @@ describe('GET api/bids', () => {
   });
 
   it('should include correct properties.', () => {
-    return chai.request(app).get('/api/bids')
+    return chai.request(app)
+    .get('/api/bids')
+    .set('ACCESS_KEY', '12345')
       .then(res => {
         expect(res.body[0]).to.have.all.keys([
           'posted_id',
@@ -40,7 +44,9 @@ describe('GET api/bids', () => {
 */
 describe('GET api/bids/postedid/:posted_id', () => {
   it('should respond with appropriate bids', () => {
-    return chai.request(app).get('/api/bids/postedid/123452')
+    return chai.request(app)
+    .get('/api/bids/postedid/123452')
+    .set('ACCESS_KEY', '12345')
       .then(res => {
         let one = res.body;
 
@@ -55,7 +61,9 @@ describe('GET api/bids/postedid/:posted_id', () => {
 */
 describe('GET api/bids/username/:username', () => {
   it('should respond with appropriate bids', () => {
-    return chai.request(app).get('/api/bids/username/Id.')
+    return chai.request(app)
+    .get('/api/bids/username/Id.')
+    .set('ACCESS_KEY', '12345')
       .then(res => {
         let one = res.body;
 
@@ -71,7 +79,9 @@ describe('GET api/bids/username/:username', () => {
 describe('POST api/bids/', () => {
 
   it('should add a single entry', () => {
-    return chai.request(app).post('/api/bids/')
+    return chai.request(app)
+    .post('/api/bids/')
+    .set('ACCESS_KEY', '12345')
     .send({
       app_id: '12345',
       posted_id: '123451',

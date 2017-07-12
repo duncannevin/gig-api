@@ -12,7 +12,9 @@ const expect = chai.expect;
 */
 describe('GET api/apps WITHOUT king key', () => {
   it('should respond with Forbidden error', () => {
-    return chai.request(app).get('/api/apps')
+    return chai.request(app)
+    .get('/api/apps')
+    .set('ACCESS_KEY', '12345')
       .then(res => {
       })
       .catch(err => {
@@ -26,7 +28,10 @@ describe('GET api/apps WITHOUT king key', () => {
 */
 describe('GET api/apps', () => {
   it('responds with JSON array', () => {
-    return chai.request(app).get('/api/apps').set('KING_KEY', 'whereareyou')
+    return chai.request(app)
+    .get('/api/apps')
+    .set('KING_KEY', 'whereareyou')
+    .set('ACCESS_KEY', '12345')
       .then(res => {
         expect(res.status).to.equal(200);
         expect(res).to.be.json;
@@ -35,7 +40,10 @@ describe('GET api/apps', () => {
   });
 
   it('should include 12345', () => {
-    return chai.request(app).get('/api/apps').set('KING_KEY', 'whereareyou')
+    return chai.request(app)
+    .get('/api/apps')
+    .set('KING_KEY', 'whereareyou')
+    .set('ACCESS_KEY', '12345')
       .then(res => {
         let appId = res.body.find(app => app.app_id === '12345');
 
@@ -54,7 +62,10 @@ describe('GET api/apps', () => {
 */
 describe('GET api/apps/getone/:app_id', () => {
   it('should respond with correct app', () => {
-    return chai.request(app).get('/api/apps/getone/67890').set('KING_KEY', 'whereareyou')
+    return chai.request(app)
+    .get('/api/apps/getone/67890')
+    .set('KING_KEY', 'whereareyou')
+    .set('ACCESS_KEY', '12345')
       .then(res => {
         const app = res.body;
 
@@ -74,6 +85,7 @@ describe('POST app/apps/', () => {
     return chai.request(app)
     .post('/api/apps/')
     .set('KING_KEY', 'whereareyou')
+    .set('ACCESS_KEY', '12345')
     .send({access_key: 'lockit'})
       .then(res => {
         expect(res).to.have.status(200);
@@ -82,7 +94,10 @@ describe('POST app/apps/', () => {
   });
 
   it('should have created an app_id when one is not added', () => {
-    return chai.request(app).get('/api/apps/getone/testingitout').set('KING_KEY', 'whereareyou')
+    return chai.request(app)
+    .get('/api/apps/getone/testingitout')
+    .set('KING_KEY', 'whereareyou')
+    .set('ACCESS_KEY', '12345')
       .then(res => {
         const app = res.body;
 

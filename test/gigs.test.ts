@@ -12,7 +12,9 @@ const expect = chai.expect;
 */
 describe('GET api/gigs', () => {
   it('responds with JSON array', () => {
-    return chai.request(app).get('/api/gigs')
+    return chai.request(app)
+    .get('/api/gigs')
+    .set('ACCESS_KEY', '12345')
       .then(res => {
         expect(res.status).to.equal(200);
         expect(res).to.be.json;
@@ -21,7 +23,9 @@ describe('GET api/gigs', () => {
   });
 
   it('should include correct properties', () => {
-    return chai.request(app).get('/api/gigs')
+    return chai.request(app)
+    .get('/api/gigs')
+    .set('ACCESS_KEY', '12345')
       .then(res => {
         expect(res.body[0]).to.have.all.keys([
           'id',
@@ -44,7 +48,9 @@ describe('GET api/gigs', () => {
 describe('POST api/gigs/', () => {
 
   it('should add a new gig', () => {
-    return chai.request(app).post('/api/gigs/')
+    return chai.request(app)
+    .post('/api/gigs/')
+    .set('ACCESS_KEY', '12345')
     .send({
       app_id: '12345',
       freelancer: 'Ultrices.',
@@ -68,7 +74,9 @@ describe('POST api/gigs/', () => {
 describe('GET api/gigs/freelancer/:freelancer', () => {
 
   it('should respond with the correct freelancer', () => {
-    return chai.request(app).get('/api/gigs/freelancer/Farfegnutty.')
+    return chai.request(app)
+    .get('/api/gigs/freelancer/Farfegnutty.')
+    .set('ACCESS_KEY', '12345')
       .then(res => {
         let gigs = res.body;
 
@@ -85,7 +93,9 @@ describe('GET api/gigs/freelancer/:freelancer', () => {
 describe('GET api/gigs/customer/:customer', () => {
 
   it('should respond with the correct customer', () => {
-    return chai.request(app).get('/api/gigs/customer/Nibh.')
+    return chai.request(app)
+    .get('/api/gigs/customer/Nibh.')
+    .set('ACCESS_KEY', '12345')
       .then(res => {
         let gigs = res.body;
 
