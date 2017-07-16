@@ -11,14 +11,15 @@ export class PostedRouter {
   }
 
   /**
-  * GET all Posted
+  * GET all Posted where header.app_id matches
   */
   public getAll(req: Request, res: Response, next: NextFunction) {
     const queryStr: string = `
       SELECT * FROM posted
+      WHERE app_id=?
     `;
 
-    HandleDatabase([], queryStr, (err, data) => {
+    HandleDatabase([req.headers.app_id], queryStr, (err, data) => {
       if (err) {
         res.status(404).json('Oops something went wrong');
         return;
@@ -29,17 +30,19 @@ export class PostedRouter {
   }
 
   /**
-  * GET all posted based on username
+  * GET all posted based on username and headers.app_id
   */
   public getUser(req: Request, res: Response, next: NextFunction) {
     const userName: string = req.params.username;
+    const appId: string = req.headers.app_id;
 
     const queryStr: string = `
       SELECT * FROM posted
       WHERE username=?
+      and app_id=?
     `;
 
-    HandleDatabase([userName], queryStr, (err, data) => {
+    HandleDatabase([userName, appId], queryStr, (err, data) => {
       if (err) {
         res.status(404).json('No posts with that id');
         return;
@@ -50,7 +53,7 @@ export class PostedRouter {
   }
 
   /**
-  * POST a new post
+  * POST a new post. app_id is included in body
   */
   public addOne(req: Request, res: Response, next: NextFunction) {
     const queryStr = `
@@ -62,7 +65,6 @@ export class PostedRouter {
 
     HandleDatabase(_.values(req.body), queryStr, (err, data) => {
       if (err) {
-        console.log(err.message);
         res.status(404).json('Oops something went wrong');
         return;
       } else {

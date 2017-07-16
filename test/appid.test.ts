@@ -3,6 +3,7 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import app from '../src/App';
+import handleDatabase from '../src/db/HandleDatabase';
 
 chai.use(chaiHttp);
 const expect = chai.expect;
@@ -90,22 +91,19 @@ describe('POST app/apps/', () => {
       .then(res => {
         expect(res.body).to.have.property('app_id');
         expect(res).to.have.status(200);
+
+        const queryStr: string = `
+          DELETE FROM apps
+          WHERE access_key=?
+        `;
+
+        handleDatabase(['lockit'], queryStr, (err, data) => {
+          if (err) {
+            console.log('DIDNT DELETE APP');
+          }
+          console.log('APP FROM TEST DELETED');
+        });
       });
 
-  });
-
-  it('should have created an app_id when one is not added', () => {
-    return chai.request(app)
-    .get('/api/apps/getone/testingitout')
-    .set('KING_KEY', 'whereareyou')
-    .set('ACCESS_KEY', '12345')
-      .then(res => {
-        const app = res.body;
-
-        expect(app).to.be.an('array');
-        expect(app).to.have.length(1);
-        expect(app[0].app_id).to.equal('testingitout');
-        expect(app[0].access_key).to.equal('lockit');
-      });
   });
 });

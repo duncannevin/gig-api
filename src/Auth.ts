@@ -15,14 +15,14 @@ export class Auth {
 
     HandleDatabase([req.headers.access_key], queryStr, (err, data) => {
       if (err) {
-        res.redirect('/index.html');
+        res.status(403).json('forbidden');
         return;
       } else {
-        if (data.length === 1) {
+        if (data.length >= 1) {
           next();
           return;
         } else {
-          res.redirect('/index.html');
+          res.status(403).json('forbidden');
           return;
         }
       }

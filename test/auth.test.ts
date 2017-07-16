@@ -15,13 +15,14 @@ describe('Tests if access key lock works', () => {
       .then(res => {
       })
       .catch(err => {
-        expect(err.status).to.equal(302);
+        expect(err.status).to.equal(403);
+        expect(err.message).to.equal('Forbidden');
       });
   });
 
   it('should be fine with good access key', () => {
     return chai.request(app)
-    .get('/api/users')
+    .get('/api/users/')
     .set('ACCESS_KEY', '12345')
       .then(res => {
         expect(res.status).to.equal(200);

@@ -11,14 +11,15 @@ export class UsersRouter {
   }
 
   /**
-  * GET all users
+  * GET all users where header.app_id matches
   */
   public getAll(req: Request, res: Response, next: NextFunction) {
     const queryStr: string = `
       SELECT * FROM users
+      WHERE app_id=?
     `;
 
-    HandleDatabase([], queryStr, (err, data) => {
+    HandleDatabase([req.headers.app_id], queryStr, (err, data) => {
       if (err) {
         res.status(404).json('Oops something went wrong');
         return;
@@ -29,17 +30,19 @@ export class UsersRouter {
   }
 
   /**
-  * GET a user by their username
+  * GET a user by their username and header.app_id
   */
   public getOne(req: Request, res: Response, next: NextFunction) {
     const username: string = req.params.username;
+    const appId: string = req.headers.app_id;
 
     const queryStr: string = `
       SELECT * FROM users
       WHERE username=?
+      and app_id=?
     `;
 
-    HandleDatabase([username], queryStr, (err, data) => {
+    HandleDatabase([username, appId], queryStr, (err, data) => {
       if (err) {
         res.status(404).json('No user by that username found');
       } else {
@@ -49,7 +52,8 @@ export class UsersRouter {
   }
 
   /**
-  * POST a new user also updates the user.
+  * POST a new user also updates the user. app_id is part of
+  * body
   */
   public addOne(req: Request, res: Response, next: NextFunction) {
     const queryStr = `
@@ -65,6 +69,7 @@ export class UsersRouter {
 
     HandleDatabase(_.values(req.body), queryStr, (err, data) => {
       if (err) {
+        console.log(err);
         res.status(404).json('Post new app failed');
         return;
       } else {
@@ -75,7 +80,7 @@ export class UsersRouter {
 
   init() {
     this.router.get('/', this.getAll);
-    this.router.get('/:username', this.getOne);
+    this.router.get('/:username/', this.getOne);
     this.router.post('/', this.addOne);
   }
 }

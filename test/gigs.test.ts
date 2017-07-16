@@ -3,6 +3,7 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import app from '../src/App';
+import handleDatabase from '../src/db/HandleDatabase';
 
 chai.use(chaiHttp);
 const expect = chai.expect;
@@ -15,6 +16,7 @@ describe('GET api/gigs', () => {
     return chai.request(app)
     .get('/api/gigs')
     .set('ACCESS_KEY', '12345')
+    .set('app_id', '67890')
       .then(res => {
         expect(res.status).to.equal(200);
         expect(res).to.be.json;
@@ -26,6 +28,7 @@ describe('GET api/gigs', () => {
     return chai.request(app)
     .get('/api/gigs')
     .set('ACCESS_KEY', '12345')
+    .set('app_id', '67890')
       .then(res => {
         expect(res.body[0]).to.have.all.keys([
           'id',
@@ -51,6 +54,7 @@ describe('POST api/gigs/', () => {
     return chai.request(app)
     .post('/api/gigs/')
     .set('ACCESS_KEY', '12345')
+    .set('app_id', '67890')
     .send({
       app_id: '12345',
       freelancer: 'Ultrices.',
@@ -64,6 +68,18 @@ describe('POST api/gigs/', () => {
       .then(res => {
         expect(res.body.warningCount).to.equal(0);
         expect(res.body.affectedRows).to.equal(1);
+
+        const queryStr: string = `
+          DELETE FROM gigs
+          WHERE customer=?
+        `;
+
+        handleDatabase(['Nibh.'], queryStr, (err, data) => {
+          if (err) {
+            console.log('DIDNT DELETE GIG');
+          }
+          console.log('GIG FROM TEST DELETED');
+        });
       });
   });
 });
@@ -77,6 +93,7 @@ describe('GET api/gigs/freelancer/:freelancer', () => {
     return chai.request(app)
     .get('/api/gigs/freelancer/Farfegnutty.')
     .set('ACCESS_KEY', '12345')
+    .set('app_id', '67890')
       .then(res => {
         let gigs = res.body;
 
@@ -94,13 +111,14 @@ describe('GET api/gigs/customer/:customer', () => {
 
   it('should respond with the correct customer', () => {
     return chai.request(app)
-    .get('/api/gigs/customer/Nibh.')
+    .get('/api/gigs/customer/Id.')
     .set('ACCESS_KEY', '12345')
+    .set('app_id', '67890')
       .then(res => {
         let gigs = res.body;
 
         expect(gigs).to.be.an('array');
-        expect(gigs[0].freelancer).to.equal('Ultrices.');
+        expect(gigs[0].freelancer).to.equal('Farfegnutty.');
       });
   });
 });

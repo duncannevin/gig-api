@@ -11,14 +11,15 @@ export class BidsRouter {
   }
 
   /**
-  * GET all bids
+  * GET all bids where headers.app_id match
   */
   public getAll(req: Request, res: Response, next: NextFunction) {
     const queryStr: string = `
       SELECT * FROM bids
+      WHERE app_id=?
     `;
 
-    HandleDatabase([], queryStr, (err, data) => {
+    HandleDatabase([req.headers.app_id], queryStr, (err, data) => {
       if (err) {
         res.status(404).json('Oops something went wrong');
         return;
@@ -29,17 +30,19 @@ export class BidsRouter {
   }
 
   /**
-  * GET all bids based on posted_id
+  * GET all bids based on posted_id and headers.app_id
   */
   public bidGig(req: Request, res: Response, next: NextFunction) {
     const postedId: string = req.params.posted_id;
+    const appId: string = req.headers.app_id;
 
     const queryStr: string = `
       SELECT * FROM bids
       WHERE posted_id=?
+      and app_id=?
     `;
 
-    HandleDatabase([postedId], queryStr, (err, data) => {
+    HandleDatabase([postedId, appId], queryStr, (err, data) => {
       if (err) {
         res.status(404).json('No bids for that post yet');
       } else {
@@ -49,17 +52,19 @@ export class BidsRouter {
   }
 
   /**
-  * GET all bids based on username
+  * GET all bids based on username and headers.app_id
   */
   public bidUser(req: Request, res: Response, next: NextFunction) {
     const userName: string = req.params.username;
+    const appId: string = req.headers.app_id;
 
     const queryStr: string = `
       SELECT * FROM bids
       WHERE username=?
+      and app_id=?
     `;
 
-    HandleDatabase([userName], queryStr, (err, data) => {
+    HandleDatabase([userName, appId], queryStr, (err, data) => {
       if (err) {
         res.status(404).json('No bids by that username found');
         return;
@@ -70,7 +75,7 @@ export class BidsRouter {
   }
 
   /**
-  * POST a new bid
+  * POST a new bid app_id is part of body
   */
   public addOne(req: Request, res: Response, next: NextFunction) {
     const queryStr: string = `
@@ -85,7 +90,6 @@ export class BidsRouter {
 
     HandleDatabase(_.values(req.body), queryStr, (err, data) => {
       if (err) {
-        console.log(err.message);
         res.status(404).json('Oops something went wrong');
         return;
       } else {

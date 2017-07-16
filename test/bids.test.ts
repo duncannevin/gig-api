@@ -3,6 +3,7 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import app from '../src/App';
+import handleDatabase from '../src/db/HandleDatabase';
 
 chai.use(chaiHttp);
 const expect = chai.expect;
@@ -15,6 +16,7 @@ describe('GET api/bids', () => {
     return chai.request(app)
     .get('/api/bids')
     .set('ACCESS_KEY', '12345')
+    .set('app_id', '67890')
       .then(res => {
         expect(res.status).to.equal(200);
         expect(res).to.be.json;
@@ -26,6 +28,7 @@ describe('GET api/bids', () => {
     return chai.request(app)
     .get('/api/bids')
     .set('ACCESS_KEY', '12345')
+    .set('app_id', '67890')
       .then(res => {
         expect(res.body[0]).to.have.all.keys([
           'posted_id',
@@ -47,6 +50,7 @@ describe('GET api/bids/postedid/:posted_id', () => {
     return chai.request(app)
     .get('/api/bids/postedid/123452')
     .set('ACCESS_KEY', '12345')
+    .set('app_id', '67890')
       .then(res => {
         let one = res.body;
 
@@ -64,6 +68,7 @@ describe('GET api/bids/username/:username', () => {
     return chai.request(app)
     .get('/api/bids/username/Id.')
     .set('ACCESS_KEY', '12345')
+    .set('app_id', '67890')
       .then(res => {
         let one = res.body;
 
@@ -82,6 +87,7 @@ describe('POST api/bids/', () => {
     return chai.request(app)
     .post('/api/bids/')
     .set('ACCESS_KEY', '12345')
+    .set('app_id', '67890')
     .send({
       app_id: '12345',
       posted_id: '123451',
@@ -92,6 +98,19 @@ describe('POST api/bids/', () => {
         expect(res.body).to.be.an('object');
         expect(res.body.warningCount).to.equal(0);
         expect(res.body.affectedRows).to.equal(1);
+
+        const queryStr: string = `
+          DELETE FROM bids
+          WHERE posted_id=?
+          and username=?
+        `;
+
+        handleDatabase(['123451', 'Tempor.'], queryStr, (err, data) => {
+          if (err) {
+            console.log('DIDNT DELETE BID');
+          }
+          console.log('BID FROM TEST DELETED');
+        });
       });
   });
 });

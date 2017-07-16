@@ -3,6 +3,7 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import app from '../src/App';
+import handleDatabase from '../src/db/HandleDatabase';
 
 chai.use(chaiHttp);
 const expect = chai.expect;
@@ -15,6 +16,7 @@ describe('GET api/posted', () => {
     return chai.request(app)
     .get('/api/posted')
     .set('ACCESS_KEY', '12345')
+    .set('app_id', '67890')
       .then(res => {
         expect(res.status).to.equal(200);
         expect(res).to.be.json;
@@ -26,6 +28,7 @@ describe('GET api/posted', () => {
     return chai.request(app)
     .get('/api/posted')
     .set('ACCESS_KEY', '12345')
+    .set('app_id', '67890')
       .then(res => {
         expect(res.body[0]).to.have.all.keys([
           'id',
@@ -49,6 +52,7 @@ describe('GET api/posted/user/:username', () => {
     return chai.request(app)
     .get('/api/posted/user/Tempor.')
     .set('ACCESS_KEY', '12345')
+    .set('app_id', '67890')
       .then(res => {
         let posts = res.body;
 
@@ -66,6 +70,7 @@ describe('POST api/posted/', () => {
     return chai.request(app)
     .post('/api/posted')
     .set('ACCESS_KEY', '12345')
+    .set('app_id', '67890')
     .send({
       posted_id: '12345',
       username: 'Id.',
@@ -77,6 +82,18 @@ describe('POST api/posted/', () => {
       .then(res => {
         expect(res.body.warningCount).to.equal(0);
         expect(res.body.affectedRows).to.equal(1);
+
+        const queryStr: string = `
+          DELETE FROM posted
+          WHERE username=?
+        `;
+
+        handleDatabase(['Id.'], queryStr, (err, data) => {
+          if (err) {
+            console.log('DIDNT DELETE POST');
+          }
+          console.log('POST FROM TEST DELETED');
+        });
       });
   });
 });

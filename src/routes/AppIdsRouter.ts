@@ -71,12 +71,13 @@ export class AppsRouter {
   }
 
   /**
-  * POST a new app also updates the app
+  * POST a new app
   */
   public addOne = (req: Request, res: Response, next: NextFunction): void => {
     const queryStr: string = `
       INSERT INTO apps (app_id, access_key)
-      VALUES (?, ?)`;
+      VALUES (?, ?)
+    `;
 
     let appId: string = !req.body.app_id ? this.createAppId() : req.body.app_id;
 

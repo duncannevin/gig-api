@@ -11,14 +11,15 @@ export class GigsRouter {
   }
 
   /**
-  * GET all Gigs
+  * GET all Gigs where header.app_id match
   */
   public getAll(req: Request, res: Response, next: NextFunction) {
     const queryStr: string = `
       SELECT * FROM gigs
+      WHERE app_id=?
     `;
 
-    HandleDatabase([], queryStr, (err, data) => {
+    HandleDatabase([req.headers.app_id], queryStr, (err, data) => {
       if (err) {
         res.status(404).json('Oops something went wrong');
       } else {
@@ -28,17 +29,20 @@ export class GigsRouter {
   }
 
   /**
-  * GET all gigs based on freelancer username
+  * GET all gigs based on freelancer username and
+  * headers.app_id
   */
   public getFreelancer(req: Request, res: Response, next: NextFunction) {
     const freeLancer: string = req.params.freelancer;
+    const appId: string = req.headers.app_id;
 
     const queryStr: string = `
       SELECT * FROM gigs
-      WHERE  freelancer = ?
+      WHERE  freelancer=?
+      and app_id=?
     `;
 
-    HandleDatabase([freeLancer], queryStr, (err, data) => {
+    HandleDatabase([freeLancer, appId], queryStr, (err, data) => {
       if (err) {
         res.status(404).json('No freeLancer by that username found');
         return;
@@ -49,17 +53,20 @@ export class GigsRouter {
   }
 
   /**
-  * GET all gigs based on customer username
+  * GET all gigs based on customer username and
+  * headers.app_id
   */
   public getCustomer(req: Request, res: Response, next: NextFunction) {
     const customer: string = req.params.customer;
+    const appId: string = req.headers.app_id;
 
     const queryStr = `
       SELECT * FROM gigs
       WHERE customer = ?
+      and app_id=?
     `;
 
-    HandleDatabase([customer], queryStr, (err, data) => {
+    HandleDatabase([customer, appId], queryStr, (err, data) => {
       if (err) {
         res.status(404).json('No customer by that username found');
         return;
@@ -70,7 +77,7 @@ export class GigsRouter {
   }
 
   /**
-  * POST a new gig
+  * POST a new gig app_id is included in body
   */
   public addOne(req: Request, res: Response, next: NextFunction) {
     const queryStr: string = `
