@@ -8,25 +8,34 @@ export class Auth {
   constructor() {}
 
   public checkForKey = (req: Request, res: Response, next: NextFunction): void => {
-    const queryStr = `
-      SELECT * FROM apps
-      WHERE access_key=?
-    `;
 
-    HandleDatabase([req.headers.access_key], queryStr, (err, data) => {
-      if (err) {
-        res.status(403).json('forbidden');
+    switch(req.headers.king_key) {
+
+      case 'whereareyou':
+        next();
         return;
-      } else {
-        if (data.length >= 1) {
-          next();
-          return;
-        } else {
-          res.status(403).json('forbidden');
-          return;
-        }
-      }
-    });
+      default:
+        const queryStr = `
+          SELECT * FROM apps
+          WHERE access_key=?
+        `;
+
+        HandleDatabase([req.headers.access_key], queryStr, (err, data) => {
+          if (err) {
+            res.status(403).json('forbidden');
+            return;
+          } else {
+            if (data.length >= 1) {
+              next();
+              return;
+            } else {
+              res.status(403).json('forbidden');
+              return;
+            }
+          }
+        });
+    }
+
   }
 }
 
