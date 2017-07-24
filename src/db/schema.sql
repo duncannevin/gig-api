@@ -30,9 +30,12 @@ CREATE TABLE IF NOT EXISTS `posted` (
   `app_id` VARCHAR(255),
   `username` VARCHAR(255),
   `date_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `price_range` VARCHAR(40),
+  `price_range` VARCHAR(255),
   `skills` VARCHAR(255),
-  `project` VARCHAR(1028),
+  `description` VARCHAR(1028),
+  `price_per` VARCHAR(255),
+  `payment_type` VARCHAR(255),
+  `type` VARCHAR(255),
    PRIMARY KEY (`id`),
    FOREIGN KEY (app_id) REFERENCES apps(app_id),
    FOREIGN KEY (username) REFERENCES users(username)
@@ -44,12 +47,13 @@ CREATE TABLE IF NOT EXISTS `bids` (
   `app_id` VARCHAR(255),
   `posted_id` VARCHAR(255),
   `username` VARCHAR(255),
-  `price` INTEGER,
+  `price` VARCHAR(255),
   `date_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
    PRIMARY KEY (`id`),
    FOREIGN KEY (app_id) REFERENCES apps(app_id),
    FOREIGN KEY (posted_id) REFERENCES posted(posted_id),
-   FOREIGN KEY (username) REFERENCES users(username)
+   FOREIGN KEY (username) REFERENCES users(username),
+   UNIQUE KEY (`username`, `posted_id`)
 );
 
 

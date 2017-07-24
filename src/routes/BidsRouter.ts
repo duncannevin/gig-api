@@ -78,17 +78,21 @@ export class BidsRouter {
   * POST a new bid app_id is part of body
   */
   public addOne(req: Request, res: Response, next: NextFunction) {
+    const appId: string = req.headers.app_id
+    , postedId: string = req.body.posted_id
+    , username: string = req.body.username
+    , price: string = req.body.price;
+
     const queryStr: string = `
       INSERT INTO bids (app_id, posted_id, username, price)
       VALUES (?, ?, ?, ?)
       ON DUPLICATE KEY UPDATE
       app_id=VALUES(app_id),
       posted_id=VALUES(posted_id),
-      username=VALUES(username),
       price=VALUES(price)
     `;
 
-    HandleDatabase(_.values(req.body), queryStr, (err, data) => {
+    HandleDatabase([appId, postedId, username, price], queryStr, (err, data) => {
       if (err) {
         res.status(404).json('Oops something went wrong');
         return;

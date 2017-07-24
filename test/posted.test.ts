@@ -36,9 +36,12 @@ describe('GET api/posted', () => {
           'username',
           'date_time',
           'price_range',
-          'project',
+          'description',
           'app_id',
           'skills',
+          'payment_type',
+          'price_per',
+          'type',
         ]);
       });
   });
@@ -47,10 +50,10 @@ describe('GET api/posted', () => {
 /**
 * tests getting all posted based on username
 */
-describe('GET api/posted/user/:username', () => {
+describe('GET api/posted/user/:username/:type', () => {
   it('should respond with correct users posts', () => {
     return chai.request(app)
-    .get('/api/posted/user/Tempor.')
+    .get('/api/posted/user/Tempor./job')
     .set('ACCESS_KEY', '12345')
     .set('app_id', '67890')
       .then(res => {
@@ -59,6 +62,43 @@ describe('GET api/posted/user/:username', () => {
         expect(posts).to.be.an('array');
         expect(posts[0].username).to.equal('Tempor.');
       });
+  });
+});
+
+/*
+* tests get query to see if it is able to find posted
+* based on a query and type
+**/
+describe('GET api/posted/query/:query/:type', () => {
+  it('should respond with correct user posts', () => {
+    return chai.request(app)
+      .get('/api/posted/query/frogging/product')
+      .set('ACCESS_KEY', '12345')
+      .set('app_id', '67890')
+        .then(res => {
+          const posts = res.body;
+
+          expect(posts).to.be.an('array');
+          expect(posts).to.have.length(2);
+        });
+  });
+});
+
+/*
+* tests get all based on type
+**/
+describe('GET api/posted/getbytype/:type', () => {
+  it('should respond with correct type posts', () => {
+    return chai.request(app)
+      .get('/api/posted/getbytype/job')
+      .set('ACCESS_KEY', '12345')
+      .set('app_id', '67890')
+        .then(res => {
+          const posts = res.body;
+
+          expect(posts).to.be.an('array');
+          expect(posts).to.have.length(3);
+        });
   });
 });
 
@@ -75,9 +115,12 @@ describe('POST api/posted/', () => {
       posted_id: '12345',
       username: 'Id.',
       price_range: '10 - 29',
-      project: 'Mow my lawn three times per week',
+      description: 'Mow my lawn three times per week',
       app_id: '12345',
-      skills: "['book', 'run', 'jump']"
+      skills: "['book', 'run', 'jump']",
+      payment_type: 'BTC',
+      price_per: 'Hour',
+      type: 'job',
     })
       .then(res => {
         expect(res.body.warningCount).to.equal(0);
@@ -97,3 +140,4 @@ describe('POST api/posted/', () => {
       });
   });
 });
+

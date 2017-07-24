@@ -30,19 +30,85 @@ export class PostedRouter {
   }
 
   /**
+  * GET all posted based on type --> 'job' or 'product'
+  */
+  public getType(req: Request, res: Response, next: NextFunction) {
+    const queryStr: string = `
+      SELECT * FROM posted
+      WHERE app_id=?
+      and type=?
+    `;
+
+    HandleDatabase([req.headers.app_id, req.params.type], queryStr, (err, data) => {
+      if (err) {
+        res.status(404).json('Oops something went wrong');
+        return;
+      } else {
+        res.json(data);
+      }
+    });
+  }
+
+  /**
   * GET all posted based on username and headers.app_id
   */
   public getUser(req: Request, res: Response, next: NextFunction) {
     const userName: string = req.params.username;
+    const type: string = req.params.type;
     const appId: string = req.headers.app_id;
 
     const queryStr: string = `
       SELECT * FROM posted
       WHERE username=?
+      and type=?
       and app_id=?
     `;
 
-    HandleDatabase([userName, appId], queryStr, (err, data) => {
+    HandleDatabase([userName, type, appId], queryStr, (err, data) => {
+      if (err) {
+        res.status(404).json('No posts with that id');
+        return;
+      } else {
+        res.json(data);
+      }
+    });
+  }
+
+  /**
+  *  GET all posted based on a query
+  */
+  public getQuery(req: Request, res: Response, next: NextFunction) {
+    const query: string = req.params.query;
+    const type: string = req.params.type;
+
+    const queryStr: string = `
+      SELECT * FROM posted
+      WHERE skills=?
+      and type=?
+    `;
+
+    HandleDatabase([query, type], queryStr, (err, data) => {
+      if (err) {
+        res.status(404).json('No posts with that query');
+        return;
+      } else {
+        res.json(data);
+      }
+    });
+  }
+
+  /**
+  * GET a most based on is post_id
+  */
+  public getPostId(req: Request, res: Response, next: NextFunction) {
+    const postId: string = req.params.postid;
+
+    const queryStr: string = `
+      SELECT * FROM posted
+      WHERE posted_id=?
+    `;
+
+    HandleDatabase([postId], queryStr, (err, data) => {
       if (err) {
         res.status(404).json('No posts with that id');
         return;
@@ -79,7 +145,10 @@ export class PostedRouter {
   init() {
     // Add end points here
     this.router.get('/', this.getAll);
-    this.router.get('/user/:username', this.getUser);
+    this.router.get('/user/:username/:type', this.getUser);
+    this.router.get('/query/:query/:type', this.getQuery);
+    this.router.get('/getbytype/:type', this.getType);
+    this.router.get('/getbypostid/:postid', this.getPostId);
     this.router.post('/', this.addOne);
   }
 }
