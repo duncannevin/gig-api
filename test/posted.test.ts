@@ -125,19 +125,23 @@ describe('POST api/posted/', () => {
       .then(res => {
         expect(res.body.warningCount).to.equal(0);
         expect(res.body.affectedRows).to.equal(1);
-
-        const queryStr: string = `
-          DELETE FROM posted
-          WHERE username=?
-        `;
-
-        handleDatabase(['Id.'], queryStr, (err, data) => {
-          if (err) {
-            console.log('DIDNT DELETE POST');
-          }
-          console.log('POST FROM TEST DELETED');
-        });
       });
   });
 });
+
+/**
+* tests delete a post
+*/
+describe('DELETE api/posted/:postid', () => {
+  it('should remove post', () => {
+    return chai.request(app)
+    .del('/api/posted/12345')
+    .set('ACCESS_KEY', '12345')
+    .set('app_id', '67890')
+      .then(res => {
+        expect(res.body.warningCount).to.equal(0);
+        expect(res.body.affectedRows).to.equal(1);
+      });
+  });
+})
 

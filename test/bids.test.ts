@@ -84,33 +84,53 @@ describe('GET api/bids/username/:username', () => {
 describe('POST api/bids/', () => {
 
   it('should add a single entry', () => {
-    return chai.request(app)
-    .post('/api/bids/')
+    chai.request(app)
+    .post('/api/posted')
     .set('ACCESS_KEY', '12345')
     .set('app_id', '67890')
     .send({
+      posted_id: '11111',
+      username: 'Id.',
+      price_range: '10 - 29',
+      description: 'Mow my lawn three times per week',
       app_id: '12345',
-      posted_id: '123451',
-      username: 'Tempor.',
-      price: 19999
+      skills: "['book', 'run', 'jump']",
+      payment_type: 'BTC',
+      price_per: 'Hour',
+      type: 'job',
     })
       .then(res => {
-        expect(res.body).to.be.an('object');
-        expect(res.body.warningCount).to.equal(0);
-        expect(res.body.affectedRows).to.equal(1);
-
-        const queryStr: string = `
-          DELETE FROM bids
-          WHERE posted_id=?
-          and username=?
-        `;
-
-        handleDatabase(['123451', 'Tempor.'], queryStr, (err, data) => {
-          if (err) {
-            console.log('DIDNT DELETE BID');
-          }
-          console.log('BID FROM TEST DELETED');
-        });
+        return chai.request(app)
+        .post('/api/bids/')
+        .set('ACCESS_KEY', '12345')
+        .set('app_id', '67890')
+        .send({
+          app_id: '12345',
+          posted_id: '11111',
+          username: 'Tempor.',
+          price: 19999
+        })
+          .then(res => {
+            expect(res.body).to.be.an('object');
+            expect(res.body.warningCount).to.equal(0);
+            expect(res.body.affectedRows).to.equal(1);
+          });
       });
   });
 });
+
+/**
+* tests delete a post
+*/
+describe('DELETE api/bids/:postid', () => {
+  it('should remove post', () => {
+    return chai.request(app)
+    .del('/api/bids/11111')
+    .set('ACCESS_KEY', '12345')
+    .set('app_id', '67890')
+      .then(res => {
+        expect(res.body.warningCount).to.equal(0);
+        expect(res.body.affectedRows).to.equal(1);
+      });
+  });
+})

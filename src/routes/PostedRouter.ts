@@ -122,7 +122,7 @@ export class PostedRouter {
   * POST a new post. app_id is included in body
   */
   public addOne(req: Request, res: Response, next: NextFunction) {
-    const queryStr = `
+    const queryStr: string = `
       INSERT INTO posted (${_.keys(req.body).join(',')})
       VALUES (${_.map(req.body, noth => '?').join(',')})
       ON DUPLICATE KEY UPDATE
@@ -130,6 +130,25 @@ export class PostedRouter {
     `;
 
     HandleDatabase(_.values(req.body), queryStr, (err, data) => {
+      if (err) {
+        res.status(404).json('Oops something went wrong');
+        return;
+      } else {
+        res.json(data);
+      }
+    });
+  }
+
+  /*
+  * DELETE post based on post_id
+  **/
+  public deleteOne(req: Request, res: Response, next: NextFunction) {
+    const queryStr: string = `
+      DELETE FROM posted
+      WHERE posted_id=?
+    `;
+
+    HandleDatabase([req.params.postid], queryStr, (err, data) => {
       if (err) {
         res.status(404).json('Oops something went wrong');
         return;
@@ -150,6 +169,7 @@ export class PostedRouter {
     this.router.get('/getbytype/:type', this.getType);
     this.router.get('/getbypostid/:postid', this.getPostId);
     this.router.post('/', this.addOne);
+    this.router.delete('/:postid', this.deleteOne);
   }
 }
 

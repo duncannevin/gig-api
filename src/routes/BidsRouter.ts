@@ -102,6 +102,25 @@ export class BidsRouter {
     });
   }
 
+  /*
+  * DELETE post based on post_id
+  **/
+  public deleteOne(req: Request, res: Response, next: NextFunction) {
+    const queryStr: string = `
+      DELETE FROM bids
+      WHERE posted_id=?
+    `;
+
+    HandleDatabase([req.params.postid], queryStr, (err, data) => {
+      if (err) {
+        res.status(404).json('Oops something went wrong');
+        return;
+      } else {
+        res.json(data);
+      }
+    });
+  }
+
   /**
   * attach each handler to the appropriate end point
   */
@@ -110,6 +129,7 @@ export class BidsRouter {
     this.router.get('/postedid/:posted_id', this.bidGig);
     this.router.get('/username/:username', this.bidUser);
     this.router.post('/', this.addOne);
+    this.router.delete('/:postid', this.deleteOne);
   }
 }
 
