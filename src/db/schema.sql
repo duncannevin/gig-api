@@ -60,6 +60,7 @@ CREATE TABLE IF NOT EXISTS `bids` (
 CREATE TABLE IF NOT EXISTS `gigs` (
   `id` INTEGER AUTO_INCREMENT UNIQUE,
   `app_id` VARCHAR(255),
+  `gig_id` VARCHAR(255),
   `freelancer` VARCHAR(255),
   `customer` VARCHAR(255),
   `price` INTEGER,
