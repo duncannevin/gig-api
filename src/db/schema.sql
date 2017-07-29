@@ -63,13 +63,16 @@ CREATE TABLE IF NOT EXISTS `gigs` (
   `gig_id` VARCHAR(255),
   `freelancer` VARCHAR(255),
   `customer` VARCHAR(255),
-  `price` INTEGER,
-  `complete` BOOLEAN,
-  `final_price` INTEGER,
-  `freelancer_rating` INTEGER,
-  `customer_rating` INTEGER,
+  `price` VARCHAR(255),
+  `skills` VARCHAR(255),
+  `description` VARCHAR(1028),
+  `complete` BOOLEAN DEFAULT 0,
+  `final_price` VARCHAR(255) DEFAULT '$0.00',
+  `freelancer_rating` INTEGER DEFAULT 1,
+  `customer_rating` INTEGER DEFAULT 1,
    PRIMARY KEY (`id`),
    FOREIGN KEY (app_id) REFERENCES apps(app_id),
    FOREIGN KEY (freelancer) REFERENCES users(username),
-   FOREIGN KEY (customer) REFERENCES users(username)
+   FOREIGN KEY (customer) REFERENCES users(username),
+   UNIQUE KEY (`gig_id`)
 );

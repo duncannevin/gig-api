@@ -150,7 +150,7 @@ export class PostedRouter {
 
     HandleDatabase([req.params.postid], queryStr, (err, data) => {
       if (err) {
-        res.status(404).json('Oops something went wrong');
+        res.status(404).json('Oops something went wrong\n' + err.message);
         return;
       } else {
         res.json(data);

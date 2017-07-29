@@ -41,6 +41,8 @@ describe('GET api/gigs', () => {
           'freelancer_rating',
           'customer_rating',
           'gig_id',
+          'description',
+          'skills',
         ]);
       });
   });
@@ -120,6 +122,45 @@ describe('GET api/gigs/customer/:customer', () => {
 
         expect(gigs).to.be.an('array');
         expect(gigs[0].freelancer).to.equal('Farfegnutty.');
+      });
+  });
+});
+
+describe('GET api/gigs/getavgrating/:whichone/:username', () => {
+
+  it('should get the avg of all the users gigs', () => {
+    return chai.request(app)
+    .get('/api/gigs/getavgrating/all/Farfegnutty.')
+    .set('ACCESS_KEY', '12345')
+    .set('app_id', '67890')
+      .then(res => {
+        expect(res.body).to.be.an('object');
+        expect(res.body).have.key('Farfegnutty. has an avg overall rating of');
+        expect(res.body['Farfegnutty. has an avg overall rating of']).to.equal(2);
+      });
+  });
+
+  it('should get the avg of users freelancer gigs', () => {
+    return chai.request(app)
+    .get('/api/gigs/getavgrating/freelancer/Farfegnutty.')
+    .set('ACCESS_KEY', '12345')
+    .set('app_id', '67890')
+      .then(res => {
+        expect(res.body).to.be.an('object');
+        expect(res.body).have.key('Farfegnutty. has an avg freelancer rating of');
+        expect(res.body['Farfegnutty. has an avg freelancer rating of']).to.equal(2);
+      });
+  });
+
+  it('should get the avg of users customer gigs', () => {
+    return chai.request(app)
+    .get('/api/gigs/getavgrating/customer/Id.')
+    .set('ACCESS_KEY', '12345')
+    .set('app_id', '67890')
+      .then(res => {
+        expect(res.body).to.be.an('object');
+        expect(res.body).have.key('Id. has an avg customer rating of');
+        expect(res.body['Id. has an avg customer rating of']).to.equal(5);
       });
   });
 });

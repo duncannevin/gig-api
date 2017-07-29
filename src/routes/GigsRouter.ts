@@ -80,28 +80,86 @@ export class GigsRouter {
   * POST a new gig app_id is included in body
   */
   public addOne(req: Request, res: Response, next: NextFunction) {
+
+    let params: any[] = [
+      { app_id: req.headers.app_id },
+      { gig_id: req.body.gig_id },
+      { freelancer: req.body.freelancer },
+      { customer: req.body.customer },
+      { price: req.body.price },
+      { skills: req.body.skills },
+      { description: req.body.description },
+      { complete: req.body.complete },
+      { final_price: req.body.final_price },
+      { freelancer_rating: req.body.freelancer_rating },
+      { customer_rating: req.body.customer_rating },
+    ];
+
+    params = _.filter(params, param => {
+      const pVal = _.values(param)[0];
+      if (pVal !== undefined) {
+        return param
+      }
+    });
+
     const queryStr: string = `
-      INSERT INTO gigs (app_id, freelancer, customer, price, complete, final_price,
-      freelancer_rating, customer_rating)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-      ON DUPLICATE KEY UPDATE
-      app_id=VALUES(app_id),
-      freelancer=VALUES(freelancer),
-      customer=VALUES(customer),
-      price=VALUES(price),
-      complete=VALUES(complete),
-      final_price=VALUES(final_price),
-      freelancer_rating=VALUES(freelancer_rating),
-      customer_rating=VALUES(customer_rating)
+      INSERT INTO gigs (${_.map(params, p => _.keys(p)[0]).join(', ')})
+      VALUES (${params.map(p => '?').join(', ')})
     `;
 
-    HandleDatabase(_.values(req.body), queryStr, (err, data) => {
+    HandleDatabase(_.map(params, p => _.values(p)[0]), queryStr, (err, data) => {
       if (err) {
         console.log(err.message);
         res.status(404).json('Oops something went wrong');
         return;
       } else {
         res.json(data);
+      }
+    });
+  }
+
+  public getAvgRating(req: Request, res: Response, next: NextFunction) {
+
+    const strs: Object = {
+      all:  `
+        SELECT freelancer_rating
+        FROM gigs
+        WHERE freelancer=?
+
+        UNION ALL
+
+        SELECT customer_rating
+        FROM gigs
+        WHERE customer=?
+      `,
+      freelancer: `
+        SELECT freelancer_rating
+        FROM gigs
+        WHERE freelancer=?
+      `,
+      customer: `
+        SELECT customer_rating
+        FROM gigs
+        WHERE customer=?
+      `
+    };
+
+    const params: any[] = req.params.whichone === 'all' ? [req.params.username, req.params.username] : [req.params.username];
+
+    HandleDatabase(params, strs[req.params.whichone], (err, data) => {
+      if (err) {
+        console.log(err.message);
+        res.status(404).json('Oops something went wrong');
+        return;
+      } else {
+        const avg: number = _.reduce(data, (sum, obj) => {
+          return sum += _.values(obj)[0];
+        }, 0) / data.length;
+        let retObj: Object = {};
+
+        retObj[`${req.params.username} has an avg ${req.params.whichone !== 'all' ? req.params.whichone : 'overall'} rating of`] = avg;
+
+        res.json(retObj);
       }
     });
   }
@@ -114,6 +172,7 @@ export class GigsRouter {
     this.router.get('/freelancer/:freelancer', this.getFreelancer);
     this.router.get('/customer/:customer', this.getCustomer);
     this.router.post('/', this.addOne);
+    this.router.get('/getavgrating/:whichone/:username', this.getAvgRating);
   }
 }
 

@@ -87,8 +87,6 @@ export class BidsRouter {
       INSERT INTO bids (app_id, posted_id, username, price)
       VALUES (?, ?, ?, ?)
       ON DUPLICATE KEY UPDATE
-      app_id=VALUES(app_id),
-      posted_id=VALUES(posted_id),
       price=VALUES(price)
     `;
 
