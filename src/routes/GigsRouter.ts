@@ -77,6 +77,26 @@ export class GigsRouter {
   }
 
   /**
+  * GET gig based on the gig_id
+  */
+  public getGig(req: Request, res: Response, next: NextFunction) {
+    const queryStr: string = `
+      SELECT * FROM gigs
+      WHERE gig_id=?
+      and app_id=?
+    `;
+
+    HandleDatabase([req.params.gigid, req.headers.app_id], queryStr, (err, data) => {
+      if (err) {
+        res.status(404).json('No gig with that id');
+        return;
+      } else {
+        res.json(data);
+      }
+    });
+  }
+
+  /**
   * POST a new gig app_id is included in body
   */
   public addOne(req: Request, res: Response, next: NextFunction) {
@@ -105,6 +125,11 @@ export class GigsRouter {
     const queryStr: string = `
       INSERT INTO gigs (${_.map(params, p => _.keys(p)[0]).join(', ')})
       VALUES (${params.map(p => '?').join(', ')})
+      ON DUPLICATE KEY UPDATE
+      final_price=VALUES(final_price),
+      freelancer_rating=VALUES(freelancer_rating),
+      customer_rating=VALUES(customer_rating),
+      complete=VALUES(complete)
     `;
 
     HandleDatabase(_.map(params, p => _.values(p)[0]), queryStr, (err, data) => {
@@ -157,7 +182,7 @@ export class GigsRouter {
         }, 0) / data.length;
         let retObj: Object = {};
 
-        retObj[`${req.params.username} has an avg ${req.params.whichone !== 'all' ? req.params.whichone : 'overall'} rating of`] = avg;
+        retObj[`${req.params.username} has an avg ${req.params.whichone !== 'all' ? req.params.whichone : 'overall'} rating of`] = avg.toFixed(2);
 
         res.json(retObj);
       }
@@ -173,6 +198,7 @@ export class GigsRouter {
     this.router.get('/customer/:customer', this.getCustomer);
     this.router.post('/', this.addOne);
     this.router.get('/getavgrating/:whichone/:username', this.getAvgRating);
+    this.router.get('/getgig/:gigid', this.getGig);
   }
 }
 

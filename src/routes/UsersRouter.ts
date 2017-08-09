@@ -42,7 +42,7 @@ export class UsersRouter {
       and app_id=?
     `;
 
-    HandleDatabase([username, appId], queryStr, (err, data) => {
+    HandleDatabase([username, appId, username, username], queryStr, (err, data) => {
       if (err) {
         res.status(404).json('No user by that username found');
       } else {
