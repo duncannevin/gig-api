@@ -177,9 +177,15 @@ export class GigsRouter {
         res.status(404).json('Oops something went wrong');
         return;
       } else {
-        const avg: number = _.reduce(data, (sum, obj) => {
-          return sum += _.values(obj)[0];
-        }, 0) / data.length;
+        let divideBy = 0;
+        const avg: number = _.reduce(data, (sum, obj, ind, coll) => {
+          const val = _.values(obj)[0];
+          if (val > 0) {
+            sum += _.values(obj)[0];
+            divideBy++;
+          }
+          return sum;
+        }, 0) / divideBy;
         let retObj: Object = {};
 
         retObj[`${req.params.username} has an avg ${req.params.whichone !== 'all' ? req.params.whichone : 'overall'} rating of`] = avg.toFixed(2);
