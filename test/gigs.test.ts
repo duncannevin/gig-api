@@ -136,7 +136,7 @@ describe('GET api/gigs/getavgrating/:whichone/:username', () => {
       .then(res => {
         expect(res.body).to.be.an('object');
         expect(res.body).have.key('Farfegnutty. has an avg overall rating of');
-        expect(res.body['Farfegnutty. has an avg overall rating of']).to.equal(2);
+        expect(res.body['Farfegnutty. has an avg overall rating of']).to.equal('2.00');
       });
   });
 
@@ -148,7 +148,7 @@ describe('GET api/gigs/getavgrating/:whichone/:username', () => {
       .then(res => {
         expect(res.body).to.be.an('object');
         expect(res.body).have.key('Farfegnutty. has an avg freelancer rating of');
-        expect(res.body['Farfegnutty. has an avg freelancer rating of']).to.equal(2);
+        expect(res.body['Farfegnutty. has an avg freelancer rating of']).to.equal('2.00');
       });
   });
 
@@ -160,7 +160,7 @@ describe('GET api/gigs/getavgrating/:whichone/:username', () => {
       .then(res => {
         expect(res.body).to.be.an('object');
         expect(res.body).have.key('Id. has an avg customer rating of');
-        expect(res.body['Id. has an avg customer rating of']).to.equal(5);
+        expect(res.body['Id. has an avg customer rating of']).to.equal('5.00');
       });
   });
 });

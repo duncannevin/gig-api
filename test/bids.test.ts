@@ -130,7 +130,6 @@ describe('DELETE api/bids/:postid', () => {
     .set('app_id', '67890')
       .then(res => {
         expect(res.body.warningCount).to.equal(0);
-        expect(res.body.affectedRows).to.equal(1);
       });
   });
 })

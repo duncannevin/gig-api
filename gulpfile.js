@@ -8,17 +8,18 @@ const tsProject = ts.createProject('tsconfig.json');
 gulp.task('scripts', () => {
   const tsResult = tsProject.src()
     .pipe(tsProject());
+
+  gulp.src('index.html', {cwd: 'src'})
+  .pipe(gulp.dest('dist'));
+
+  gulp.src('./db/schema.sql', {cwd: 'src'})
+  .pipe(gulp.dest('dist/db'));
+
   return tsResult.js.pipe(gulp.dest('dist'));
 });
 
 gulp.task('watch', ['scripts'], () => {
   gulp.watch('src/**/*.ts', ['scripts']);
-});
-
-gulp.task('copy', () => {
-  // Copy html
-  gulp.src('index.html', {cwd: 'src'})
-  .pipe(gulp.dest('dist'));
 });
 
 gulp.task('assets', function() {

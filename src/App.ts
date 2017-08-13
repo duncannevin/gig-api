@@ -14,7 +14,7 @@ import AppIdsRouter from './routes/AppIdsRouter';
 import Auth from './Auth';
 
 // SchemaConfig
-import SchemaConfig from './db/Config';
+import SchemaConfig from './db/config';
 
 // Creates and configures an ExpressJS web server.
 class App {
