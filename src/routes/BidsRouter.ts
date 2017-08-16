@@ -45,6 +45,7 @@ export class BidsRouter {
     HandleDatabase([postedId, appId], queryStr, (err, data) => {
       if (err) {
         res.status(404).json('No bids for that post yet');
+        return;
       } else {
         res.json(data);
       }
