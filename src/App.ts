@@ -13,9 +13,6 @@ import AppIdsRouter from './routes/AppIdsRouter';
 // Auth
 import Auth from './Auth';
 
-// SchemaConfig
-import SchemaConfig from './db/config';
-
 // Creates and configures an ExpressJS web server.
 class App {
 
@@ -27,12 +24,6 @@ class App {
     this.express = express();
     this.middleware();
     this.routes();
-    this.schema();
-  }
-
-  // Configure mysql schema
-  private schema(): void {
-    SchemaConfig();
   }
 
   // Configure express middleware
