@@ -22,6 +22,7 @@ export class GigsRouter {
     HandleDatabase([req.headers.app_id], queryStr, (err, data) => {
       if (err) {
         res.status(404).json('Oops something went wrong');
+        return;
       } else {
         res.json(data);
       }
