@@ -1,10 +1,10 @@
 import * as mysql from 'mysql';
 const pool = mysql.createPool({
   connectionLimit: 100,
-  host:  process.env.CLEARDB_DATABASE_URL || 'localhost',
-  user:   process.env.CLEARDB_DATABASE_USERNAME || 'root',
-  password: process.env.CLEARDB_DATABASE_PASSWORD || '',
-  database: 'gig_app',
+  host: process.env.CLEARDB_DATABASE_HOST || 'localhost',
+    user: process.env.CLEARDB_DATABASE_USERNAME || 'root',
+    password: process.env.CLEARDB_DATABASE_PASSWORD || '',
+    database: process.env.CLEARDB_DATABASE_DB || 'gig_app',
   debug: false,
   multipleStatements: true,
 });
