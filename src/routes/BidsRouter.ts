@@ -21,7 +21,7 @@ export class BidsRouter {
 
     HandleDatabase([req.headers.app_id], queryStr, (err, data) => {
       if (err) {
-        res.status(404).json('Oops something went wrong');
+        res.status(404);
         return;
       } else {
         res.json(data);
@@ -44,7 +44,7 @@ export class BidsRouter {
 
     HandleDatabase([postedId, appId], queryStr, (err, data) => {
       if (err) {
-        res.status(404).json('No bids for that post yet');
+        res.status(404);
         return;
       } else {
         res.json(data);
@@ -67,7 +67,7 @@ export class BidsRouter {
 
     HandleDatabase([userName, appId], queryStr, (err, data) => {
       if (err) {
-        res.status(404).json('No bids by that username found');
+        res.status(404);
         return;
       } else {
         res.json(data);
@@ -93,7 +93,7 @@ export class BidsRouter {
 
     HandleDatabase([appId, postedId, username, price], queryStr, (err, data) => {
       if (err) {
-        res.status(404).json('Oops something went wrong');
+        res.status(404);
         return;
       } else {
         res.status(201).json(data);
@@ -112,7 +112,7 @@ export class BidsRouter {
 
     HandleDatabase([req.params.postid], queryStr, (err, data) => {
       if (err) {
-        res.status(404).json('Oops something went wrong');
+        res.status(404);
         return;
       } else {
         res.json(data);

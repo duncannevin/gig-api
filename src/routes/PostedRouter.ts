@@ -21,7 +21,7 @@ export class PostedRouter {
 
     HandleDatabase([req.headers.app_id], queryStr, (err, data) => {
       if (err) {
-        res.status(404).json('Oops something went wrong');
+        res.status(404);
         return;
       } else {
         res.json(data);
@@ -66,7 +66,7 @@ export class PostedRouter {
 
     HandleDatabase([userName, type, appId], queryStr, (err, data) => {
       if (err) {
-        res.status(404).json('No posts with that id');
+        res.status(404);
         return;
       } else {
         res.json(data);
@@ -89,7 +89,7 @@ export class PostedRouter {
 
     HandleDatabase([query, type], queryStr, (err, data) => {
       if (err) {
-        res.status(404).json('No posts with that query');
+        res.status(404);
         return;
       } else {
         res.json(data);
@@ -110,7 +110,7 @@ export class PostedRouter {
 
     HandleDatabase([postId], queryStr, (err, data) => {
       if (err) {
-        res.status(404).json('No posts with that id');
+        res.status(404);
         return;
       } else {
         res.json(data);
@@ -131,7 +131,7 @@ export class PostedRouter {
 
     HandleDatabase(_.values(req.body), queryStr, (err, data) => {
       if (err) {
-        res.status(404).json('Oops something went wrong');
+        res.status(404);
         return;
       } else {
         res.json(data);
@@ -150,7 +150,7 @@ export class PostedRouter {
 
     HandleDatabase([req.params.postid], queryStr, (err, data) => {
       if (err) {
-        res.status(404).json('Oops something went wrong\n' + err.message);
+        res.status(404);
         return;
       } else {
         res.json(data);

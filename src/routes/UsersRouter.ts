@@ -21,7 +21,7 @@ export class UsersRouter {
 
     HandleDatabase([req.headers.app_id], queryStr, (err, data) => {
       if (err) {
-        res.status(404).json('Oops something went wrong');
+        res.status(404);
         return;
       } else {
         res.json(data);
@@ -44,7 +44,7 @@ export class UsersRouter {
 
     HandleDatabase([username, appId, username, username], queryStr, (err, data) => {
       if (err) {
-        res.status(404).json('No user by that username found');
+        res.status(404);
         return;
       } else {
         res.json(data);
@@ -70,7 +70,7 @@ export class UsersRouter {
 
     const params = [
       req.body.app_id,
-      req.body.userName,
+      req.body.username,
       req.body.first_name,
       req.body.last_name,
       req.body.profile_pic_url,
@@ -78,10 +78,10 @@ export class UsersRouter {
 
     HandleDatabase(params, queryStr, (err, data) => {
       if (err) {
-        res.status(404).json('Post new app failed');
+        res.status(404);
         return;
       } else {
-        res.status(201).json(data);
+        res.json(data);
       }
     });
   }

@@ -21,7 +21,7 @@ export class GigsRouter {
 
     HandleDatabase([req.headers.app_id], queryStr, (err, data) => {
       if (err) {
-        res.status(404).json('Oops something went wrong');
+        res.status(404);
         return;
       } else {
         res.json(data);
@@ -45,7 +45,7 @@ export class GigsRouter {
 
     HandleDatabase([freeLancer, appId], queryStr, (err, data) => {
       if (err) {
-        res.status(404).json('No freeLancer by that username found');
+        res.status(404);
         return;
       } else {
         res.json(data);
@@ -69,7 +69,7 @@ export class GigsRouter {
 
     HandleDatabase([customer, appId], queryStr, (err, data) => {
       if (err) {
-        res.status(404).json('No customer by that username found');
+        res.status(404);
         return;
       } else {
         res.json(data);
@@ -89,7 +89,7 @@ export class GigsRouter {
 
     HandleDatabase([req.params.gigid, req.headers.app_id], queryStr, (err, data) => {
       if (err) {
-        res.status(404).json('No gig with that id');
+        res.status(404);
         return;
       } else {
         res.json(data);
@@ -136,7 +136,7 @@ export class GigsRouter {
     HandleDatabase(_.map(params, p => _.values(p)[0]), queryStr, (err, data) => {
       if (err) {
         console.log(err.message);
-        res.status(404).json('Oops something went wrong');
+        res.status(404);
         return;
       } else {
         res.json(data);
@@ -175,7 +175,7 @@ export class GigsRouter {
     HandleDatabase(params, strs[req.params.whichone], (err, data) => {
       if (err) {
         console.log(err.message);
-        res.status(404).json('Oops something went wrong');
+        res.status(404);
         return;
       } else {
         let divideBy = 0;

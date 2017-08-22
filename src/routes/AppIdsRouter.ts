@@ -24,7 +24,7 @@ export class AppsRouter {
       case 'whereareyou':
         HandleDatabase([], queryStr, (err, data) => {
           if (err) {
-            res.status(404).json('Apps getAll failed');
+            res.status(404);
             return;
           } else {
             res.json(data);
@@ -32,7 +32,7 @@ export class AppsRouter {
         });
         return;
       default:
-        res.status(403).json('Forbidden');
+        res.status(403);
         return;
     }
   }
@@ -54,7 +54,7 @@ export class AppsRouter {
 
         HandleDatabase([appId], queryStr, (err, data) => {
           if (err) {
-            res.status(404).json('No app with that id found');
+            res.status(404);
             return;
           } else {
             res.json(data);
@@ -83,7 +83,7 @@ export class AppsRouter {
 
     HandleDatabase([appId, req.body.access_key], queryStr, (err, data) => {
       if (err) {
-        res.status(404).json('Post new app failed');
+        res.status(404);
         return;
       } else {
         data.app_id = appId;
