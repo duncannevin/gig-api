@@ -68,9 +68,16 @@ export class UsersRouter {
       profile_pic_url=VALUES(profile_pic_url)
     `;
 
-    HandleDatabase(_.values(req.body), queryStr, (err, data) => {
+    const params = [
+      req.body.app_id,
+      req.body.userName,
+      req.body.first_name,
+      req.body.last_name,
+      req.body.profile_pic_url,
+    ];
+
+    HandleDatabase(params, queryStr, (err, data) => {
       if (err) {
-        console.log(err);
         res.status(404).json('Post new app failed');
         return;
       } else {
